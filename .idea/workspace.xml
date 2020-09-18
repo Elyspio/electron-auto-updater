@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="42d0902d-c5aa-4a5f-abe4-9e28aaef6527" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/back/src/app.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/src/config/authentication.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/src/controllers/test/test.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/src/controllers/types/request.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/src/core/assembler/converter.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/src/core/assembler/json.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/src/core/services/api.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/src/core/services/authentication.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/src/core/storage.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/src/middleware/authentication.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/src/middleware/common/util.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/src/server.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front/src/api/test.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front/src/config/authentication.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/app.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/core/assembler/converter.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/core/assembler/json.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/core/example/haproxy.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/core/example/types/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/core/storage.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/middleware/middleware.ts" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/middleware/common/raw.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/back/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/routes/example.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/routes/types/request.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/back/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/util/helper.ts" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/util/helper.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/util/logger.ts" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/util/logger.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/back/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker/DockerFile" beforeDir="false" afterPath="$PROJECT_DIR$/docker/DockerFile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker/arm/arm64.sh" beforeDir="false" afterPath="$PROJECT_DIR$/docker/arm/arm64.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker/arm/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker/arm/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker/variables.sh" beforeDir="false" afterPath="$PROJECT_DIR$/docker/variables.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/api/Interactor.ts" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/api/api.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/api/example.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/components/Application.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/components/Application.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/components/example/Example.scss" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/components/test/Test.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/components/example/Example.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/components/test/Test.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/components/example/variables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/components/test/variables.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/config/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/config/api.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/front/tsconfig.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1hPTl3aUzFvlznfoS6yLHYBX4Tv" />
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="autoscrollToSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="false" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="ts.external.directory.path" value="P:\own\desktop\cross-platform\express-react-ts-template\back\node_modules\typescript\lib" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="P:\own\desktop\cross-platform\express-react-ts-template\back\src\middleware\common" />
+      <recent name="P:\own\desktop\cross-platform\express-react-ts-template\back\src\controllers\authentication" />
+    </key>
+  </component>
+  <component name="RunManager" selected="npm.Start back">
+    <configuration name="Start  front" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/front/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="Start back" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/back/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="wsl://UBUNTU@/usr/local/bin/node" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="npm.Start back" />
+      <item itemvalue="npm.Start  front" />
+    </list>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="42d0902d-c5aa-4a5f-abe4-9e28aaef6527" name="Default Changelist" comment="" />
+      <created>1599911874894</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1599911874894</updated>
+      <workItem from="1599911876033" duration="10454000" />
+      <workItem from="1599989597234" duration="8000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="734" y="354" width="1092" height="715" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1599923726189">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="734" y="354" width="1092" height="715" key="#com.intellij.execution.impl.EditConfigurationsDialog/-3840.-283.1707.942/2560.174.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1599923726189" />
+    <state x="1085" y="415" key="#com.intellij.ide.util.MemberChooser" timestamp="1599912216486">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1085" y="415" key="#com.intellij.ide.util.MemberChooser/-3840.-283.1707.942/0.0.2560.1400/2560.174.1920.1040@0.0.2560.1400" timestamp="1599912216486" />
+    <state x="1010" y="446" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1599914554802">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1010" y="446" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/-3840.-283.1707.942/0.0.2560.1400/2560.174.1920.1040@0.0.2560.1400" timestamp="1599914554802" />
+    <state width="2518" height="394" key="GridCell.Tab.0.bottom" timestamp="1599933064164">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2518" height="394" key="GridCell.Tab.0.bottom/-3840.-283.1707.942/0.0.2560.1400/2560.174.1920.1040@0.0.2560.1400" timestamp="1599915478188" />
+    <state width="2518" height="394" key="GridCell.Tab.0.bottom/-3840.-283.1707.942/2560.174.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1599933064164" />
+    <state width="2518" height="394" key="GridCell.Tab.0.center" timestamp="1599933064164">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2518" height="394" key="GridCell.Tab.0.center/-3840.-283.1707.942/0.0.2560.1400/2560.174.1920.1040@0.0.2560.1400" timestamp="1599915478188" />
+    <state width="2518" height="394" key="GridCell.Tab.0.center/-3840.-283.1707.942/2560.174.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1599933064164" />
+    <state width="2518" height="394" key="GridCell.Tab.0.left" timestamp="1599933064164">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2518" height="394" key="GridCell.Tab.0.left/-3840.-283.1707.942/0.0.2560.1400/2560.174.1920.1040@0.0.2560.1400" timestamp="1599915478188" />
+    <state width="2518" height="394" key="GridCell.Tab.0.left/-3840.-283.1707.942/2560.174.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1599933064164" />
+    <state width="2518" height="394" key="GridCell.Tab.0.right" timestamp="1599933064164">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2518" height="394" key="GridCell.Tab.0.right/-3840.-283.1707.942/0.0.2560.1400/2560.174.1920.1040@0.0.2560.1400" timestamp="1599915478188" />
+    <state width="2518" height="394" key="GridCell.Tab.0.right/-3840.-283.1707.942/2560.174.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1599933064164" />
+    <state x="937" y="330" key="run.anything.popup" timestamp="1599913179293">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="937" y="330" key="run.anything.popup/-3840.-283.1707.942/0.0.2560.1400/2560.174.1920.1040@0.0.2560.1400" timestamp="1599913179293" />
+    <state x="943" y="315" width="672" height="678" key="search.everywhere.popup" timestamp="1599914534306">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="943" y="315" width="672" height="678" key="search.everywhere.popup/-3840.-283.1707.942/0.0.2560.1400/2560.174.1920.1040@0.0.2560.1400" timestamp="1599914534306" />
+  </component>
+</project>
