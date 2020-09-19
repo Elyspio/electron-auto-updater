@@ -9,7 +9,7 @@ let frontPath = path.resolve(__dirname, "..", "..", "front", "build");
 @Configuration({
     rootDir,
     acceptMimes: ["application/json"],
-    httpPort: process.env.HTTP_PORT || 4000,
+    httpPort: process.env.HTTP_PORT || 4010,
     httpsPort: false, // CHANGE
     mount: {
         "/core": [

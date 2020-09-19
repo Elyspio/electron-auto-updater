@@ -79,9 +79,10 @@ middlewares.push(
     cookieParser(),
     compress({}),
     methodOverride(),
-    bodyParser.json(),
+    bodyParser.json({limit: "250mb"}),
     bodyParser.urlencoded({
-        extended: true
+        extended: true,
+        limit: "250mb"
     }),
 )
 

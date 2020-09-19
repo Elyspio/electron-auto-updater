@@ -1,5 +1,5 @@
 import {Request} from "express";
-
+import {platform} from "os";
 
 // @ts-ignore
 interface Uri<Query, Body> extends Request {
@@ -29,3 +29,4 @@ export type Clientify<U extends Uri<any, any>> = { body: U["body"], query: U["qu
 
 
 
+export type ApplicationPlatform =  ReturnType<typeof platform>
