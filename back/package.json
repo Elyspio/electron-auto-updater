@@ -9,20 +9,20 @@
 		"push": "wsl ../docker/arm/compose.sh"
 	},
 	"dependencies": {
-		"@tsed/common": "^5.65.2",
-		"@tsed/core": "^5.65.2",
-		"@tsed/di": "^5.65.2",
-		"@tsed/platform-express": "^5.65.2",
+		"@tsed/common": "^5.65.3",
+		"@tsed/core": "^5.65.3",
+		"@tsed/di": "^5.65.3",
+		"@tsed/platform-express": "^5.65.3",
 		"body-parser": "^1.19.0",
 		"compression": "^1.7.4",
 		"cookie-parser": "^1.4.5",
 		"cors": "^2.8.5",
-		"dayjs": "^1.8.35",
+		"dayjs": "^1.8.36",
 		"express": "^4.17.1",
 		"fs-extra": "^9.0.1",
 		"md5": "^2.3.0",
 		"method-override": "^3.0.0",
-		"node-fetch": "^2.6.0",
+		"node-fetch": "^2.6.1",
 		"tslib": "^2.0.1",
 		"winston": "^3.3.3"
 	},
@@ -31,10 +31,10 @@
 		"@types/express": "^4.17.8",
 		"@types/fs-extra": "^9.0.1",
 		"@types/md5": "^2.2.0",
-		"@types/node": "^14.10.1",
+		"@types/node": "^12",
 		"@types/node-fetch": "^2.5.7",
 		"nodemon": "latest",
 		"ts-node": "latest",
-		"typescript": "latest"
+		"typescript": "^3"
 	}
 }

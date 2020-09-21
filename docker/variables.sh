@@ -1,1 +1,1 @@
-export app="external-server"
+export app="electron-auto-update"

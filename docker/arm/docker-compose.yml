@@ -1,12 +1,14 @@
 version: "3"
 services:
   server:
-    image: elyspio/external-server:arm64
+    image: elyspio/electron-auto-update:arm64
     ports:
-      - "4002:4000"
+      - "4003:4000"
     environment:
       LOG_FOLDER: /var/logs
+      APPLICATIONS_LOCATION: /app/bin
     volumes:
-      - /apps/test/logs:/var/logs
+      - /apps/electron-auto-update/bin/:/app/bin
+      - /apps/electron-auto-update/logs:/var/logs
     restart: always
-    container_name: test
+    container_name: electron-auto-update

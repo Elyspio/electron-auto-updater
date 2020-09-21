@@ -22,7 +22,8 @@
 		"lib": [
 			"es7",
 			"ESNext",
-			"esnext.asynciterable"
+			"dom"
+
 		],
 		"typeRoots": [
 			"./node_modules/@types"
