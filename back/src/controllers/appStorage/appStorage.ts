@@ -31,6 +31,13 @@ export class AppStorage {
     @Get('/:app/:platform')
     async getLatest(@PathParams('app') app: string, @PathParams('platform') platform: Platform, @Res() res: Express.Response) {
         const binary = await Core.AppStorage.getLatest(app, platform);
+        const fileName = `${app}-installer${platform === "windows" ? ".exe" : ""}`
+        const mime = "application/vnd.microsoft.portable-executable"
+        res.writeHead(200, {
+            'Content-Disposition': `attachment; filename="${fileName}"`,
+            'Content-Type': mime,
+            'Content-Length': binary.length
+        })
         res.end(binary, 'binary');
     }
 }
