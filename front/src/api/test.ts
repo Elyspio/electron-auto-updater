@@ -1,24 +1,23 @@
 import {Api} from "./api";
-import {apiEndpoint} from "../config/authentication";
+import {endpoint} from "../config/appStorage";
 
 
-export class TestApi extends Api {
+export class AppStorageApi extends Api {
 
-    private static _instance: TestApi = new TestApi(apiEndpoint);
+    private static _instance: AppStorageApi = new AppStorageApi(endpoint);
 
     public static get instance() {
         return this._instance;
     }
 
-    public async getContent() {
-        return await this.get<string>("/");
+    public async getApps() {
+        return await this.get<string[]>("/");
     }
 
-    public async getAdminContent() {
-        const c = await this.get<string>("/");
-        if (c.status === 200) {
-            return c;
-        } else
-            return false;
+    public async getAppVersions(app: string) {
+        return await this.get<string[]>(`/${app}/version`);
+
     }
+
+
 }

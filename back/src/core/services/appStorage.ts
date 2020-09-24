@@ -1,8 +1,7 @@
-import {AppDescription, Platform} from "../../controllers/appStorage/appStorage";
+import {Platform} from "../../controllers/appStorage/appStorage";
 import * as path from "path";
 import {applicationPath} from "../../config/appStorage";
-import {ensureDir, access, lstat, readdir, readFile, writeFile} from "fs-extra";
-import {ApplicationPlatform} from "../../controllers/types/request";
+import {ensureDirSync, lstat, readdir, readFile, writeFile} from "fs-extra";
 
 const metadata = "metadata.json"
 
@@ -12,6 +11,9 @@ type Metadata = {
         linux: string[]
     }
 }
+
+
+ensureDirSync(applicationPath);
 
 export module Core.AppStorage {
 
@@ -24,8 +26,7 @@ export module Core.AppStorage {
         try {
             const json = (await readFile(path.join(getAppPath(app), metadata))).toString();
             return JSON.parse(json);
-        }
-        catch(e) {
+        } catch (e) {
             return {
                 version: {
                     linux: [],
@@ -37,10 +38,8 @@ export module Core.AppStorage {
 
     }
 
-    export async function storeApp(app: string, version: string, platform:  Platform, data: number[]) {
+    export async function storeApp(app: string, version: string, platform: Platform, data: number[]) {
         const appPath = getAppPath(app);
-
-        await ensureDir(appPath)
         await writeFile(path.join(appPath, version + (platform === "windows" ? ".exe" : "")), Buffer.from(data))
 
         const meta = await readMetadata(app);
@@ -71,12 +70,21 @@ export module Core.AppStorage {
             return prev;
         })
 
-        return  readFile(latest.path);
+        return readFile(latest.path);
     }
 
     export async function getVersions(app: string) {
         const {version} = await readMetadata(app);
         return version;
+    }
+
+    export async function getApps() {
+        return await readdir(applicationPath);
+    }
+
+    export async function getBinary(app: string, platform: Platform, version: string) {
+        const p = path.join(getAppPath(app), `${version}${platform === "windows" ? ".exe" : ""}`);
+        return readFile(p);
     }
 
 

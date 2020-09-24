@@ -23,7 +23,6 @@
 			"es7",
 			"ESNext",
 			"dom"
-
 		],
 		"typeRoots": [
 			"./node_modules/@types"

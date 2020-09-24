@@ -28,5 +28,4 @@ export type DeleteToken = Uri<{}, User>
 export type Clientify<U extends Uri<any, any>> = { body: U["body"], query: U["query"] }
 
 
-
-export type ApplicationPlatform =  ReturnType<typeof platform>
+export type ApplicationPlatform = ReturnType<typeof platform>

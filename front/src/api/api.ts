@@ -12,8 +12,22 @@ export class Api {
         console.debug("Create new API with endpoint : ", endpoint)
     }
 
+    public static redirect: redirect = (to, options) => {
+        let newLocation = to;
+
+        if (options && options.target) {
+            newLocation += `?target=${window.location.href}`;
+        }
+
+        window.location.href = newLocation
+    }
+
+    public static redirectToLoginPage = () => {
+        return Api.redirect(loginPage, {target: "self"})
+    }
+
     public get: apiCall = async <T>(url, params) => {
-        const qs = params ?  Object.keys(params).map(key => key + '=' + params[key]).join('&') : "";
+        const qs = params ? Object.keys(params).map(key => key + '=' + params[key]).join('&') : "";
         const res = await fetch(`${this.endpoint}${url}?${qs}`, {method: "GET"})
         return await this.handleRequest<T>(res);
 
@@ -34,22 +48,6 @@ export class Api {
         const res = await fetch(`${this.endpoint}${url}`, {method: "DELETE", body: JSON.stringify(params)})
         return await this.handleRequest<T>(res);
     }
-
-
-    public static redirect: redirect = (to, options) => {
-        let newLocation = to;
-
-        if (options && options.target) {
-            newLocation += `?target=${window.location.href}`;
-        }
-
-        window.location.href = newLocation
-    }
-
-    public static redirectToLoginPage = () => {
-        return Api.redirect(loginPage, {target: "self"})
-    }
-
 
     private async handleRequest<T = any>(res: Response): Promise<apiCallResponse<T>> {
         const txt = await res.text();

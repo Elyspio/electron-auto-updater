@@ -8,7 +8,7 @@ export class AuthenticationService extends Api {
     }
 
     public isAuthenticated = async (token: string) => {
-        const result = await this .post("/valid", {token});
+        const result = await this.post("/valid", {token});
         return result.status === 200;
     }
 
