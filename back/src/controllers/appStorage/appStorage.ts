@@ -1,8 +1,7 @@
-import {BodyParams, Controller, Get, PathParams, Post, Res} from '@tsed/common';
+import {BodyParams, Controller, Get, PathParams, Post, Req, Res} from '@tsed/common';
 import {Core} from '../../core/services/appStorage';
 import * as Express from 'express';
 
-export type AppDescription = { version: string };
 export type Platform = 'windows' | 'linux'
 
 @Controller('/')
@@ -11,8 +10,10 @@ export class AppStorage {
 
     @Post('/:app/:platform')
     async addApp(
+        @Req() req: Express.Request,
         @PathParams() {platform, app}: { app: string, platform: Platform },
         @BodyParams() {version, data}: { data: number[], version: string }) {
+        req.setTimeout(300 * 1e3)
         await Core.AppStorage.storeApp(app, version, platform, data);
         return {status: "OK"};
     }
