@@ -27,7 +27,7 @@ class Wrapper extends Component<ReduxTypes> {
     }
 }
 
-const ConnectedWrapper = connector(Wrapper) as any;
+const ConnectedWrapper = connector(Wrapper);
 
 ReactDOM.render(
     <Provider store={store}>

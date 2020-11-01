@@ -5,10 +5,17 @@ import {ensureDirSync, lstat, readdir, readFile, writeFile} from "fs-extra";
 
 const metadata = "metadata.json"
 
+
+type Version = {
+    val: string,
+    date: Date
+}
+
+
 type Metadata = {
     version: {
-        windows: string[],
-        linux: string[]
+        windows: Version[],
+        linux: Version[]
     }
 }
 
@@ -43,7 +50,7 @@ export module Core.AppStorage {
         await writeFile(path.join(appPath, version + (platform === "windows" ? ".exe" : "")), Buffer.from(data))
 
         const meta = await readMetadata(app);
-        meta.version[platform].push(version);
+        meta.version[platform].push({val: version, date: new Date()});
         await writeFile(path.join(appPath, metadata), JSON.stringify(meta));
     }
 
