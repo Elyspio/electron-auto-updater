@@ -1,6 +1,8 @@
-import {BodyParams, Controller, Get, PathParams, Post, Req, Res} from '@tsed/common';
+import {BodyParams, Controller, Get, PathParams, Post, QueryParams, Req, Res} from '@tsed/common';
+import {Returns} from "@tsed/schema"
 import {Core} from '../../core/services/appStorage';
 import * as Express from 'express';
+import {VersionFormatModel, VersionModel} from "./model";
 
 export type Platform = 'windows' | 'linux'
 
@@ -21,15 +23,26 @@ export class AppStorage {
     @Get('/:app/version')
     async getVersions(@PathParams('app') app: string) {
         return Core.AppStorage.getVersions(app);
-
     }
 
+
     @Get('/:app/:platform/version')
-    async getLatestVersion(@PathParams('app') app: string, @PathParams('platform') platform: Platform) {
-        return Core.AppStorage.getLatestVersion(app, platform);
+    @Returns(200, String).ContentType("text/plain")
+    @Returns(200, VersionModel).ContentType("application/json")
+    async getLatestVersion(
+        @PathParams('app') app: string,
+        @PathParams('platform') platform: Platform,
+        @QueryParams(VersionFormatModel) {format}: VersionFormatModel,
+    ) {
+        const latestVersion = await Core.AppStorage.getLatestVersion(app, platform);
+
+        if (format === "string") return latestVersion.val
+
+        return latestVersion;
     }
 
     @Get('/:app/:platform')
+
     async getLatest(@PathParams('app') app: string, @PathParams('platform') platform: Platform, @Res() res: Express.Response) {
         const binary = await Core.AppStorage.getLatest(app, platform);
         const fileName = `${app}-installer${platform === "windows" ? ".exe" : ""}`
@@ -44,7 +57,12 @@ export class AppStorage {
 
 
     @Get('/:app/:platform/:version')
-    async getAppWithVersion(@PathParams('app') app: string, @PathParams('platform') platform: Platform, @PathParams("version") version: string, @Res() res: Express.Response) {
+    async getAppWithVersion(
+        @PathParams('app') app: string,
+        @PathParams('platform') platform: Platform,
+        @PathParams("version") version: string,
+        @Res() res: Express.Response
+    ) {
         const binary = await Core.AppStorage.getBinary(app, platform, version);
         const fileName = `${app}-${version}-installer${platform === "windows" ? ".exe" : ""}`
         const mime = "application/vnd.microsoft.portable-executable"
@@ -57,6 +75,7 @@ export class AppStorage {
     }
 
 
+    @Returns(200, Array).Of(String)
     @Get("/")
     async getApps() {
         return Core.AppStorage.getApps()

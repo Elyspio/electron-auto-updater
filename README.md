@@ -6,7 +6,6 @@ A NodeJS solution to store / retrieve installers
 
 Port: 4000
 
-
 | Method | Endpoint                      | Description                                       |
 |--------|-------------------------------|---------------------------------------------------|
 | POST   | /core/:app/:platform          | Add an application for the corresponding platform |

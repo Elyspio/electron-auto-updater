@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './index.scss';
 import {connect, ConnectedProps, Provider} from "react-redux";
-import store from "./store";
-import Application from "./components/Application";
+import store from "./view/store";
+import Application from "./view/components/Application";
 import {ThemeProvider} from '@material-ui/core';
 import {themes} from "./config/theme";
-import {RootState} from "./store/reducer";
+import {RootState} from "./view/store/reducer";
 
 
 const mapStateToProps = (state: RootState) => ({theme: state.theme.current})
@@ -27,7 +27,7 @@ class Wrapper extends Component<ReduxTypes> {
     }
 }
 
-const ConnectedWrapper = connector(Wrapper);
+const ConnectedWrapper = connector(Wrapper) as any;
 
 ReactDOM.render(
     <Provider store={store}>

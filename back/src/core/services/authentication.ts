@@ -1,14 +1,9 @@
-import {Api} from "./api";
-import {apiEndpoint} from "../../config/authentication";
+import {Apis} from "../apis";
 
-export class AuthenticationService extends Api {
-
-    public constructor() {
-        super(apiEndpoint);
-    }
+export class AuthenticationService {
 
     public isAuthenticated = async (token: string) => {
-        const result = await this.post("/valid", {token});
+        const result = await Apis.authentication.authenticationValidToken({token})
         return result.status === 200;
     }
 
