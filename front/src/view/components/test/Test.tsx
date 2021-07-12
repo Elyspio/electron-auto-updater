@@ -1,9 +1,11 @@
-import {Container} from "@material-ui/core";
+import {CircularProgress, Container} from "@material-ui/core";
 import "./Test.scss"
 import Typography from "@material-ui/core/Typography";
 import Button from '@material-ui/core/Button';
 import {Services} from "../../../core/services";
 import * as React from 'react';
+import {useAsyncEffect} from "../../hooks/useAsyncEffect";
+import {useAsyncCallback} from "../../hooks/useAsyncCallback";
 
 const Test = () => {
 
@@ -11,29 +13,25 @@ const Test = () => {
 	const [msg, setMsg] = React.useState("");
 	const [admin, setAdmin] = React.useState("");
 
-	React.useEffect(() => {
-		const fetchData = async () => {
-			const {data} = await Services.example.getContent();
-			setMsg(data)
-		}
-		fetchData();
+	useAsyncEffect(async () => {
+		const {data} = await Services.example.getContent();
+		setMsg(data)
 	}, [])
 
-
-	const fetchAdmin = async () => {
+	const [fetchAdmin, {isExecuting}] = useAsyncCallback(async () => {
 		const data = await Services.example.getAdminContent();
 		if (data) {
 			setAdmin(data)
 		}
-	}
+	}, [])
 
 	return (
 		<Container className={"Test"}>
-			<Typography variant={"h6"}>Test</Typography>
-			<Typography>msg: {msg}</Typography>
+			<Typography variant={"h6"} color={"textPrimary"}>Test</Typography>
+			<Typography color={"textPrimary"}>msg: {msg}</Typography>
 
-			<Button onClick={fetchAdmin}>Admin content</Button>
-			{admin && <Typography>admin response: {admin}</Typography>}
+			<Button onClick={fetchAdmin}>{isExecuting ? <CircularProgress/> : "Admin content"}</Button>
+			{admin && <Typography color={"textPrimary"}>admin response: {admin}</Typography>}
 
 		</Container>
 	);

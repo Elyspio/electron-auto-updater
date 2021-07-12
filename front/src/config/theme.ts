@@ -1,7 +1,7 @@
-import {createMuiTheme, Theme} from "@material-ui/core";
+import {createTheme, Theme} from "@material-ui/core";
 import * as colors from "@material-ui/core/colors";
 
-const darkTheme = createMuiTheme({
+const darkTheme = createTheme({
 	palette: {
 		type: "dark",
 		secondary: {
@@ -15,13 +15,13 @@ const darkTheme = createMuiTheme({
 		},
 		background: {
 			paper: "#1d1d1d",
-			default: "#0e0e0e",
+			default: "#181818",
 		}
 
 	},
 });
 
-const lightTheme = createMuiTheme({
+const lightTheme = createTheme({
 	palette: {
 		type: "light",
 		secondary: {
@@ -42,7 +42,7 @@ export const themes = {
 
 export type Themes = "dark" | "light";
 export const getUrlTheme = (): Themes =>
-	new URL(window.location.toString()).searchParams.get("theme") ||
-	("light" as any);
+	new URL(window.location.toString()).searchParams.get("theme")
+	|| ("light" as any);
 
 export const getCurrentTheme = (theme: Themes): Theme => themes[theme];

@@ -1,5 +1,4 @@
 import * as path from "path";
-import {getLogger} from "../core/utils/logger";
 
 
 export const rootDir = path.resolve(__dirname, "..",);
