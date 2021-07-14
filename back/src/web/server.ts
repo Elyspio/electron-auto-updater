@@ -8,14 +8,15 @@ import {webConfig} from "../config/web";
 @Configuration(webConfig)
 export class Server {
 
-    @Inject()
-    app: PlatformApplication;
+	@Inject()
+	app: PlatformApplication;
 
-    @Configuration()
-    settings: Configuration;
+	@Configuration()
+	settings: Configuration;
 
-    $beforeRoutesInit() {
-        this.app.use(...middlewares)
-        return null;
-    }
+	$beforeRoutesInit() {
+		this.app.use(...middlewares)
+		return null;
+	}
 }
+

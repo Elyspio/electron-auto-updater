@@ -1,12 +1,16 @@
 import {Apis} from "../apis";
-import {$log} from "@tsed/common";
+import {Log} from "../utils/decorators/logger";
+import {getLogger} from "../utils/logger";
 
 export class AuthenticationService {
 
-    public isAuthenticated = async (token: string) => {
-        const result = await Apis.authentication.authenticationValidToken({token});
-        $log.info("AuthenticationService.isAuthenticated", {data: result.data, status: result.status})
-        return result.status === 204;
-    }
+	private static log = getLogger.service(AuthenticationService)
+
+	@Log(AuthenticationService.log)
+	public async isAuthenticated(token: string) {
+		const result = await Apis.authentication.authenticationValidToken({token});
+		AuthenticationService.log.info("AuthenticationService.isAuthenticated", {data: result.data, status: result.status})
+		return result.status === 204;
+	}
 
 }

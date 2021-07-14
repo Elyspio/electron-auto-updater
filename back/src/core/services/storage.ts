@@ -1,25 +1,31 @@
 import {promises} from "fs";
 import * as path from "path";
 import * as os from "os";
+import {Log} from "../utils/decorators/logger";
+import {getLogger} from "../utils/logger";
 
 const {writeFile, readFile} = promises
 
-export const files = {
-    account: process.env.ACCOUNT_PATH ?? "/app/accounts.json"
-}
+export const files = {}
 
 export class Storage {
 
-    async store(name: string, data: string) {
+	private static logger = getLogger.service(Storage)
 
-        if (name[0] === "~") {
-            name = path.join(os.homedir(), name.slice(1))
-        }
+	@Log(Storage.logger)
+	async store(name: string, data: string | object) {
 
-        return writeFile(path.resolve(name), data);
-    }
+		if (name[0] === "~") {
+			name = path.join(os.homedir(), name.slice(1))
+		}
 
-    async read(name: string) {
-        return (await readFile(name)).toString()
-    }
+		if (typeof data === "object") data = JSON.stringify(data, null, 4);
+
+		return writeFile(path.resolve(name), data);
+	}
+
+	@Log(Storage.logger)
+	async read(name: string) {
+		return (await readFile(name)).toString()
+	}
 }

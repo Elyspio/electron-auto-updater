@@ -1,21 +1,24 @@
-import {$log} from "@tsed/common";
 import "@tsed/platform-express"; // /!\ keep this import
 import {PlatformExpress} from "@tsed/platform-express";
 import {Server} from "./web/server";
+import {getLogger} from "./core/utils/logger";
 
 if (require.main === module) {
-    bootstrap()
+	bootstrap()
 }
 
 
 async function bootstrap() {
-    try {
-        $log.debug("Start server...");
-        const platform = await PlatformExpress.bootstrap(Server, {});
 
-        await platform.listen();
-        $log.debug("Server initialized");
-    } catch (er) {
-        $log.error(er);
-    }
+	const logger = getLogger.default()
+
+	try {
+		logger.debug("Start server...");
+		const platform = await PlatformExpress.bootstrap(Server, {});
+
+		await platform.listen();
+		logger.debug("Server initialized");
+	} catch (er) {
+		logger.error(er);
+	}
 }

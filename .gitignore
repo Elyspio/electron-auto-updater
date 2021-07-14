@@ -6,9 +6,7 @@ logs
 *.d.ts
 front/.bitmap
 .idea
-.idea
 back/src/core/apis/authentication
-.idea
 front/src/core/apis/back
 *.pyc
 front/scripts/generator.jar

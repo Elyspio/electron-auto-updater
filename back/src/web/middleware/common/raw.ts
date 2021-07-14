@@ -8,13 +8,13 @@ export const middlewares: any[] = [];
 
 
 middlewares.push(
-    cors(),
-    cookieParser(),
-    compress({}),
-    methodOverride(),
-    bodyParser.json(),
-    bodyParser.urlencoded({
-        extended: true
-    }),
+	cors(),
+	cookieParser(),
+	compress({}),
+	methodOverride(),
+	bodyParser.json(),
+	bodyParser.urlencoded({
+		extended: true
+	}),
 )
 

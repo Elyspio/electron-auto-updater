@@ -1,5 +1,5 @@
-import {ExampleService} from "./example";
+import {AppStorageService} from "./appStorage";
 
 export const Services = {
-    example: new ExampleService(),
+	appStorage: new AppStorageService(),
 }

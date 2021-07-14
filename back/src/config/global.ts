@@ -1,3 +1,6 @@
 export const globalConf = {
-    exposeEnvironmentVariables: false
+	exposeEnvironmentVariables: false,
+	appName: "Express-React-Typescript-Template"
 }
+
+

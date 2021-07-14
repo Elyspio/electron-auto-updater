@@ -1,10 +1,10 @@
-import {ExampleApi} from "./core"
+import {AppStorageApi} from "./backend"
 
 
 export const Apis = {
-    core: {
-        example: new ExampleApi(undefined, window.config.endpoints.core)
-    }
+	core: {
+		appStorage: new AppStorageApi(undefined, window.config.endpoints.core)
+	}
 }
 
 

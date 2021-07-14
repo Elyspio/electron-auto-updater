@@ -3,8 +3,8 @@ import {rootReducer} from "./reducer";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 
 const store = configureStore({
-    reducer: rootReducer,
-    devTools: process.env.NODE_ENV !== "production",
+	reducer: rootReducer,
+	devTools: process.env.NODE_ENV !== "production",
 });
 
 export type RootState = ReturnType<typeof store.getState>
