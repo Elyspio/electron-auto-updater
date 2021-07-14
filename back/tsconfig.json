@@ -1,32 +1,24 @@
 {
 	"compilerOptions": {
-		"module": "commonjs",
-		"target": "es2016",
-		"sourceMap": false,
-		"declaration": false,
-		"experimentalDecorators": true,
-		"emitDecoratorMetadata": true,
-		"moduleResolution": "node",
-		"isolatedModules": false,
-		"suppressImplicitAnyIndexErrors": false,
-		"noImplicitAny": false,
-		"strictNullChecks": true,
-		"noUnusedLocals": false,
-		"noUnusedParameters": false,
-		"allowSyntheticDefaultImports": true,
-		"importHelpers": true,
-		"newLine": "LF",
-		"noEmit": false,
-		"outDir": "build",
-		"resolveJsonModule": true,
+		"baseUrl": ".",
+		"outDir": "./build",
+		"target": "ES2020",
 		"lib": [
-			"es7",
-			"ESNext",
-			"dom"
+			"es2016",
+			"dom",
+			"ES2020",
+			"ESNext"
 		],
 		"typeRoots": [
 			"./node_modules/@types"
-		]
+		],
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+		"sourceMap": false,
+		"declaration": false,
+		"allowSyntheticDefaultImports": true
 	},
 	"include": [
 		"./src/**/*.ts"
@@ -36,8 +28,5 @@
 		"./public",
 		"dist",
 		"test"
-	],
-	"linterOptions": {
-		"exclude": []
-	}
+	]
 }

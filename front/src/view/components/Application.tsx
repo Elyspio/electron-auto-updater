@@ -1,44 +1,38 @@
 import * as React from 'react';
 import {Paper} from "@material-ui/core";
 import "./Application.scss"
-import {connect, ConnectedProps} from "react-redux";
-import {Dispatch} from "redux";
-import {RootState} from "../store/reducer";
-import {toggleTheme} from "../store/module/theme/action";
-import Appbar from "./appbar/Appbar";
 import Brightness5Icon from '@material-ui/icons/Brightness5';
-import {Drawer} from "./utils/drawer/Drawer"
-import Example from "./appStorage/AppStorage";
+import Brightness3Icon from '@material-ui/icons/Brightness3';
+import Example from "./test/Test";
+import {useAppDispatch, useAppSelector} from "../../store";
+import {toggleTheme} from "../../store/module/theme/action";
+import {withDrawer} from "./utils/drawer/Drawer.hoc";
 
-const mapStateToProps = (state: RootState) => ({theme: state.theme.current})
+function Application() {
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({toggleTheme: () => dispatch(toggleTheme())})
+    const dispatch = useAppDispatch();
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
-type ReduxTypes = ConnectedProps<typeof connector>;
+    const icon = useAppSelector(s => s.theme.current === "dark" ? <Brightness5Icon/> : <Brightness3Icon/>)
 
-export interface Props {
+    const drawer = withDrawer({
+        component: <Example/>,
+        actions: [{
+            component: {
+                icon,
+                onClick: () => dispatch(toggleTheme()),
+            },
+            description: {children: "Switch Lights"}
+        }],
+        title: "Example"
+    })
+
+
+    return (
+        <Paper square={true} className={"Application"}>
+            {drawer}
+        </Paper>
+    );
 }
 
-interface State {
-}
 
-class Application extends React.Component<Props & ReduxTypes, State> {
-
-    render() {
-
-        return (
-            <Paper square={true} className={"Application"}>
-                <Drawer position={"right"}
-                        actions={[{onClick: this.props.toggleTheme, text: "Switch lights", icon: <Brightness5Icon/>}]}>
-                    <div className="content">
-                        <Appbar appName={"Example"}/>
-                        <Example/>
-                    </div>
-                </Drawer>
-            </Paper>
-        );
-    }
-}
-
-export default connector(Application)
+export default Application

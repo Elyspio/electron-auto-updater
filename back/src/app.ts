@@ -1,7 +1,7 @@
 import {$log} from "@tsed/common";
 import "@tsed/platform-express"; // /!\ keep this import
 import {PlatformExpress} from "@tsed/platform-express";
-import {Server} from "./server";
+import {Server} from "./web/server";
 
 if (require.main === module) {
     bootstrap()

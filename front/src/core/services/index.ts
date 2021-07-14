@@ -1,5 +1,5 @@
-import {CoreService} from "./core";
+import {ExampleService} from "./example";
 
 export const Services = {
-    core: new CoreService()
+    example: new ExampleService(),
 }

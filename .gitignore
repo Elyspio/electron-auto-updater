@@ -5,6 +5,10 @@ logs
 *.js
 *.d.ts
 front/.bitmap
-apps
-DockerFile
 .idea
+.idea
+back/src/core/apis/authentication
+.idea
+front/src/core/apis/back
+*.pyc
+front/scripts/generator.jar
