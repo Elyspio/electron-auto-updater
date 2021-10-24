@@ -13,7 +13,6 @@
  * Do not edit the class manually.
  */
 
-
 export interface ConfigurationParameters {
 	apiKey?: string | Promise<string> | ((name: string) => string) | ((name: string) => Promise<string>);
 	username?: string;
@@ -96,7 +95,7 @@ export class Configuration {
 	 * @return True if the given MIME is JSON, false otherwise.
 	 */
 	public isJsonMime(mime: string): boolean {
-		const jsonMime: RegExp = new RegExp('^(application\/json|[^;/ \t]+\/[^;/ \t]+[+]json)[ \t]*(;.*)?$', 'i');
-		return mime !== null && (jsonMime.test(mime) || mime.toLowerCase() === 'application/json-patch+json');
+		const jsonMime: RegExp = new RegExp("^(application/json|[^;/ \t]+/[^;/ \t]+[+]json)[ \t]*(;.*)?$", "i");
+		return mime !== null && (jsonMime.test(mime) || mime.toLowerCase() === "application/json-patch+json");
 	}
 }

@@ -5,10 +5,8 @@ services:
     ports:
       - "4003:4000"
     environment:
-      LOG_FOLDER: /var/logs
       APPLICATIONS_LOCATION: /app/bin
     volumes:
       - ./bin/:/app/bin
-      - ./logs:/var/logs
     restart: always
     container_name: electron-auto-update

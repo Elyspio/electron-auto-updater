@@ -1,16 +1,14 @@
 import "@tsed/platform-express"; // /!\ keep this import
-import {PlatformExpress} from "@tsed/platform-express";
-import {Server} from "./web/server";
-import {getLogger} from "./core/utils/logger";
+import { PlatformExpress } from "@tsed/platform-express";
+import { Server } from "./web/server";
+import { getLogger } from "./core/utils/logger";
 
 if (require.main === module) {
-	bootstrap()
+	bootstrap();
 }
 
-
 async function bootstrap() {
-
-	const logger = getLogger.default()
+	const logger = getLogger.default();
 
 	try {
 		logger.debug("Start server...");

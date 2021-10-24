@@ -10,20 +10,19 @@ export function useModal(defaultState: boolean) {
 	const open = (e?: any) => {
 		e?.stopPropagation();
 		if (!state) {
-			setOpen(true)
+			setOpen(true);
 		}
-	}
+	};
 	const close = (e?: any) => {
 		e?.stopPropagation();
 		if (state) {
-			setOpen(false)
+			setOpen(false);
 		}
-	}
+	};
 
 	return {
 		open: state,
 		setOpen: open,
-		setClose: close
-	}
+		setClose: close,
+	};
 }
-

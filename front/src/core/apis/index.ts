@@ -1,12 +1,7 @@
-import {AppStorageApi} from "./backend"
-
+import { AppStorageApi } from "./backend";
 
 export const Apis = {
 	core: {
-		appStorage: new AppStorageApi(undefined, window.config.endpoints.core)
-	}
-}
-
-
-
-
+		appStorage: new AppStorageApi(undefined, window.config.endpoints.core),
+	},
+};

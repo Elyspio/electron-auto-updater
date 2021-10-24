@@ -1,16 +1,13 @@
-import {Logger} from "@tsed/logger";
-
+import { Logger } from "@tsed/logger";
 
 declare global {
 	interface Function {
-		logger: Logger
+		logger: Logger;
 	}
 }
 
-
 export const Log = (logger: Logger) => (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
-	let originalMethod = descriptor.value
-
+	let originalMethod = descriptor.value;
 
 	descriptor.value = function (...args: any[]) {
 		logger.debug(`${propertyKey} - Entering`);
@@ -33,7 +30,4 @@ export const Log = (logger: Logger) => (target: any, propertyKey: string, descri
 
 		return result;
 	};
-
-}
-
-
+};

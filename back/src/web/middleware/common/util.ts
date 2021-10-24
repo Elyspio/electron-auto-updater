@@ -1,5 +1,5 @@
-import {IMiddleware, Middleware} from "@tsed/common";
-import {NotFound} from "@tsed/exceptions";
+import { IMiddleware, Middleware } from "@tsed/common";
+import { NotFound } from "@tsed/exceptions";
 
 @Middleware()
 export class RequireLogin implements IMiddleware {

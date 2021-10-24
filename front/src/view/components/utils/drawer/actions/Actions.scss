@@ -1,11 +1,8 @@
 .Actions {
-
 	display: grid;
 	grid-template-columns: 1fr;
 
-
 	.Action {
-
 		display: flex;
 
 		.icon {
@@ -16,7 +13,6 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
-
 		}
 
 		cursor: pointer;
@@ -24,8 +20,6 @@
 		.ActionDescription {
 			text-transform: uppercase;
 			font-size: 1rem;
-
 		}
 	}
-
 }
