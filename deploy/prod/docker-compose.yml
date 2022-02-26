@@ -1,12 +1,39 @@
 version: "3"
 services:
-  server:
-    image: elyspio/electron-auto-update
-    ports:
-      - "4003:4000"
-    environment:
-      APPLICATIONS_LOCATION: /app/bin
-    volumes:
-      - ./bin/:/app/bin
-    restart: always
-    container_name: electron-auto-update
+    electron-auto-updater:
+        image: elyspio/electron-auto-updater
+        restart: always
+        container_name: electron-auto-updater
+        labels:
+            - "traefik.enable=true"
+            - "traefik.docker.network=external"
+            - "traefik.http.middlewares.electron-auto-updater-prefix.stripprefix.prefixes=/updater"
+            - "traefik.http.routers.electron-auto-updater.middlewares=electron-auto-updater-prefix@docker"
+            - "traefik.http.routers.electron-auto-updater.rule=PathPrefix(`/updater`)"
+            - "traefik.http.services.electron-auto-updater.loadbalancer.server.port=4000"
+            - "traefik.http.routers.electron-auto-updater.entrypoints=external"
+        volumes:
+            - "./config/front/conf.js:/back/wwwroot/conf.js"
+            - "./config/back/appsettings.json:/back/appsettings.json"
+        networks:
+            - electron-auto-updater
+            - external
+    
+    electron-app-updater-db:
+        container_name: electron-app-updater-db
+        image: mongo
+        restart: always
+        volumes:
+            - ./data:/data/db
+        ports:
+            - "27019:27017"
+        networks:
+            - electron-auto-updater
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: ${DB_USERNAME}
+            MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
+networks:
+    electron-auto-updater:
+        name: "electron-auto-updater"
+    external:
+        external: true

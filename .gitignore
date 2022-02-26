@@ -1,12 +1,11 @@
-*/node_modules
-*/build
-*.map
-logs
-*.js
-*.d.ts
-front/.bitmap
+node_modules
 .idea
-back/src/core/apis/authentication
-front/src/core/apis/back
-*.pyc
-front/scripts/generator.jar
+.vs
+bin
+obj
+
+
+# Secrets
+deploy/prod/.env
+deploy/prod/config/back/appsettings.json
+deploy/dev/data
