@@ -18,7 +18,7 @@ namespace Core.Services
         public async Task Add(App app)
         {
             var metadatas = await GetAllMetadata(app.Metadata.Name);
-            if (metadatas.Any(metadata => metadata.Arch == app.Metadata.Arch && metadata.Version == app.Metadata.Version))
+            if (metadatas.Any(metadata => metadata.Arch == app.Metadata.Arch && metadata.Version.Raw == app.Metadata.Version.Raw))
             {
                 await repository.Delete(app.Metadata.Name, app.Metadata.Version, app.Metadata.Arch);
             }

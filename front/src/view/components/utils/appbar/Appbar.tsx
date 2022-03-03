@@ -1,6 +1,6 @@
 import "./Appbar.scss";
 import React, { Component } from "react";
-import { AppBar, Toolbar, Typography } from "@material-ui/core";
+import { AppBar, Toolbar, Typography } from "@mui/material";
 
 interface Props {
 	appName: string;

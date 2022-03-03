@@ -1,15 +1,16 @@
 import React, { ReactNode } from "react";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import MuiDrawer from "@material-ui/core/Drawer";
-import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
+import { Theme } from "@mui/material/styles";
+import MuiDrawer from "@mui/material/Drawer";
+import List from "@mui/material/List";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import ListItem from "@mui/material/ListItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
 import "./Drawer.scss";
 import clsx from "clsx";
+import { makeStyles } from "@mui/styles";
 
 export interface Action {
 	text: React.ReactNode;
@@ -27,44 +28,42 @@ type Props = {
 const drawerWidth = 210;
 let baseWidth = 46;
 
-const useStyles = makeStyles((theme: Theme) =>
-	createStyles({
-		drawer: {
-			width: drawerWidth,
-			flexShrink: 0,
-			whiteSpace: "nowrap",
-		},
-		drawerOpen: {
-			width: drawerWidth,
-			transition: theme.transitions.create("width", {
-				easing: theme.transitions.easing.sharp,
-				duration: theme.transitions.duration.enteringScreen,
-			}),
-		},
-		drawerClose: {
-			transition: theme.transitions.create("width", {
-				easing: theme.transitions.easing.sharp,
-				duration: theme.transitions.duration.leavingScreen,
-			}),
-			overflowX: "hidden",
-			width: baseWidth,
-		},
-		mainSmaller: {
-			width: `calc(100% - ${drawerWidth}px) !important`,
-			transition: theme.transitions.create("width", {
-				easing: theme.transitions.easing.sharp,
-				duration: theme.transitions.duration.enteringScreen,
-			}),
-		},
-		main: {
-			width: `calc(100% - ${baseWidth}px)`,
-			transition: theme.transitions.create("width", {
-				easing: theme.transitions.easing.sharp,
-				duration: theme.transitions.duration.enteringScreen,
-			}),
-		},
-	})
-);
+const useStyles = makeStyles((theme: Theme) => ({
+	drawer: {
+		width: drawerWidth,
+		flexShrink: 0,
+		whiteSpace: "nowrap",
+	},
+	drawerOpen: {
+		width: drawerWidth,
+		transition: theme.transitions.create("width", {
+			easing: theme.transitions.easing.sharp,
+			duration: theme.transitions.duration.enteringScreen,
+		}),
+	},
+	drawerClose: {
+		transition: theme.transitions.create("width", {
+			easing: theme.transitions.easing.sharp,
+			duration: theme.transitions.duration.leavingScreen,
+		}),
+		overflowX: "hidden",
+		width: baseWidth,
+	},
+	mainSmaller: {
+		width: `calc(100% - ${drawerWidth}px) !important`,
+		transition: theme.transitions.create("width", {
+			easing: theme.transitions.easing.sharp,
+			duration: theme.transitions.duration.enteringScreen,
+		}),
+	},
+	main: {
+		width: `calc(100% - ${baseWidth}px)`,
+		transition: theme.transitions.create("width", {
+			easing: theme.transitions.easing.sharp,
+			duration: theme.transitions.duration.enteringScreen,
+		}),
+	},
+}));
 
 const getActions = (actions: Action[]) => {
 	const separatorIndexes = actions.map((action, index) => (action.text === null ? index : null)).filter(index => index !== null) as number[];
@@ -125,7 +124,9 @@ export function Drawer(props: Props) {
 				}}
 			>
 				<div onClick={handleDrawerClose} className={"drawer-btn"}>
-					<IconButton onClick={open ? handleDrawerClose : handleDrawerOpen}>{open ? <ChevronRightIcon /> : <ChevronLeftIcon />}</IconButton>
+					<IconButton onClick={open ? handleDrawerClose : handleDrawerOpen} size="medium">
+						{open ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+					</IconButton>
 				</div>
 				<Divider />
 				<div className="actions">

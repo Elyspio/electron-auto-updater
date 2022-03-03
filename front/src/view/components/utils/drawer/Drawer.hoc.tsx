@@ -1,6 +1,6 @@
 import React from "react";
 import { ActionComponent, ActionComponentProps, ActionDescription, ActionDescriptionProps } from "./actions/Action";
-import { Box, Grid, Paper, Typography } from "@material-ui/core";
+import { Box, Grid, Paper, Typography } from "@mui/material";
 import { Drawer } from "./Drawer";
 import "./actions/Actions.scss";
 

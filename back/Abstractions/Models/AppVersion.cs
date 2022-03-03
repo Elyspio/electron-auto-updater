@@ -32,7 +32,7 @@ namespace Abstractions.Models
             return $"{Major}.{Minor}.{Revision}";
         }
 
-        public static explicit operator AppVersion(string str)
+        public static implicit operator AppVersion(string str)
         {
             var versions = str.Split('.');
             return new AppVersion

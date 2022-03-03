@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { IconButton, Typography } from "@material-ui/core";
+import { IconButton, Typography } from "@mui/material";
 
 export type ActionComponentProps = {
 	icon: React.ReactNode;
@@ -12,7 +12,7 @@ export const ActionComponent = ({ children, icon, onClick, className }: ActionCo
 	return (
 		<div className={"Action " + (className ?? "")} onClick={onClick}>
 			<div className={"icon"}>
-				<IconButton>{icon}</IconButton>
+				<IconButton size="medium">{icon}</IconButton>
 			</div>
 			<div className={"description"}>{children}</div>
 		</div>

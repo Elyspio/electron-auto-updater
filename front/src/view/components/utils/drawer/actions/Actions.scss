@@ -1,25 +1,31 @@
 .Actions {
-	display: grid;
-	grid-template-columns: 1fr;
 
-	.Action {
-		display: flex;
+  display: grid;
+  grid-template-columns: 1fr;
 
-		.icon {
-			margin-right: 0.5rem;
-		}
 
-		.description {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-		}
+  .Action {
 
-		cursor: pointer;
+    display: flex;
 
-		.ActionDescription {
-			text-transform: uppercase;
-			font-size: 1rem;
-		}
-	}
+    .icon {
+      margin-right: 0.5rem;
+    }
+
+    .description {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+    }
+
+    cursor: pointer;
+
+    .ActionDescription {
+      text-transform: uppercase;
+      font-size: 1rem;
+
+    }
+  }
+
 }

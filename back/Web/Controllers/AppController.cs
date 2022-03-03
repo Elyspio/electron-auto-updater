@@ -2,6 +2,7 @@ using Abstractions.Enums;
 using Abstractions.Interfaces.Services;
 using Abstractions.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 using Web.Models;
 
 namespace Web.Controllers;
@@ -18,11 +19,17 @@ public class AppController : ControllerBase
         this.service = stackService;
     }
 
-    [HttpPost]
+    [HttpPost("{name}/{arch}/{version}")]
     [RequestFormLimits(BufferBodyLengthLimit = long.MaxValue)]
-    public Task Add(AddApp model)
+    public Task Add([Required] string name, [Required] string version, [Required] AppArch arch, [Required]  byte[] content)
     {
-        var app = new App { Metadata = model.Metadata, Binary = model.Binary.Select(b => (byte) b).ToArray()};
+        var app = new App { Metadata = new AppMetadata
+        {
+            Arch = arch,
+            Name = name,
+            Version = version
+        }, 
+        Binary = content};
         return service.Add(app);
     }
 
@@ -33,19 +40,19 @@ public class AppController : ControllerBase
     }
 
     [HttpDelete("{name}/{arch}/{version}")]
-    public Task Delete(string name, string version, AppArch arch)
+    public Task Delete([Required] string name, [Required] string version, [Required] AppArch arch)
     {
         return service.Delete(name, (AppVersion)version, arch);
     }
 
     [HttpGet("{name}")]
-    public Task<List<AppMetadata>> GetAllMetadata(string name)
+    public Task<List<AppMetadata>> GetAllMetadata([Required] string name)
     {
         return service.GetAllMetadata(name);
     }
 
     [HttpGet("{name}/{arch}/{version}")]
-    public async Task<IResult> GetBinary(string name, string version, AppArch arch)
+    public async Task<IResult> GetBinary([Required] string name, [Required] string version, [Required] AppArch arch)
     {
         var bytes = await service.GetBinary(name, (AppVersion)version, arch);
 
@@ -54,13 +61,13 @@ public class AppController : ControllerBase
     }
 
     [HttpGet("{name}/version")]
-    public Task<Dictionary<AppArch, List<AppVersion>>> GetLatestVersions(string name)
+    public Task<Dictionary<AppArch, List<AppVersion>>> GetLatestVersions([Required] string name)
     {
         return service.GetLatestVersion(name);
     }
 
     [HttpGet("{name}/{arch}/version")]
-    public Task<AppVersion> GetLatestArchSpecificVersion(string name, AppArch arch)
+    public Task<AppVersion> GetLatestArchSpecificVersion([Required] string name, [Required] AppArch arch)
     {
         return service.GetLatestVersion(name, arch);
     }

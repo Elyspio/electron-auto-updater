@@ -1,34 +1,40 @@
 {
-	"name": "front",
+	"name": "updater-front",
 	"version": "0.1.0",
 	"private": true,
-	"homepage": "/",
+	"homepage": "/updater/",
 	"scripts": {
 		"start": "react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
-		"docker": "cd ../back && npm run docker"
+		"docker": "node ../deploy/build/build.js"
 	},
 	"dependencies": {
-		"@material-ui/core": "4.12.1",
-		"@material-ui/data-grid": "4.0.0-alpha.33",
-		"@material-ui/icons": "4.11.2",
-		"@reduxjs/toolkit": "1.6.0",
-		"axios": "^0.21.1",
+		"@mui/material": "^5.4.3",
+		"@mui/styles": "^5.4.2",
+		"@mui/icons-material": "^5.4.2",
+		"@emotion/styled": "^11.8.1",
+		"@emotion/react": "^11.8.1",
+		"@reduxjs/toolkit": "^1.7.2",
+		"axios": "^0.26.0",
+		"inversify": "^6.0.1",
+		"inversify-react": "^1.0.1",
 		"react": "^17.0.2",
 		"react-dom": "^17.0.2",
-		"react-redux": "7.2.4",
-		"redux": "4.1.0"
+		"react-redux": "7.2.6",
+		"react-toastify": "^8.2.0",
+		"redux": "4.1.2",
+		"reflect-metadata": "^0.1.13"
 	},
 	"devDependencies": {
-		"@types/node": "^16.3.2",
-		"@types/react": "^17.0.14",
-		"@types/react-dom": "^17.0.9",
-		"@types/react-redux": "^7.1.18",
-		"react-scripts": "^4.0.3",
-		"sass": "^1.35.2",
-		"typescript": "latest"
+		"@types/node": "^17.0.21",
+		"@types/react": "^17.0.34",
+		"@types/react-dom": "^17.0.11",
+		"@types/react-redux": "^7.1.22",
+		"react-scripts": "^5.0.0",
+		"sass": "^1.49.9",
+		"typescript": "^4.5.5"
 	},
 	"eslintConfig": {
 		"extends": "react-app"

@@ -1,34 +1,45 @@
+import "reflect-metadata";
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.scss";
 import { Provider } from "react-redux";
 import store, { useAppSelector } from "./store";
 import Application from "./view/components/Application";
-import { ThemeProvider } from "@material-ui/core";
+import { StyledEngineProvider, Theme, ThemeProvider } from "@mui/material";
 import { themes } from "./config/theme";
-import { Config } from "./config/window";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
+import { Provider as DiProvider } from "inversify-react";
+import { container } from "./core/di";
 
-declare global {
-	interface Window {
-		config: Config;
-	}
+declare module "@mui/styles/defaultTheme" {
+	// eslint-disable-next-line @typescript-eslint/no-empty-interface
+	interface DefaultTheme extends Theme {}
 }
 
 function Wrapper() {
-	const theme = useAppSelector(state => (state.theme.current === "dark" ? themes.dark : themes.light));
+	const { theme, current } = useAppSelector(state => ({
+		theme: state.theme.current === "dark" ? themes.dark : themes.light,
+		current: state.theme.current,
+	}));
 
 	return (
-		<ThemeProvider theme={theme}>
-			<Application />
-		</ThemeProvider>
+		<StyledEngineProvider injectFirst>
+			<ThemeProvider theme={theme}>
+				<Application />
+				<ToastContainer theme={current} position={"top-right"} />
+			</ThemeProvider>
+		</StyledEngineProvider>
 	);
 }
 
 function App() {
 	return (
-		<Provider store={store}>
-			<Wrapper />
-		</Provider>
+		<DiProvider container={container}>
+			<Provider store={store}>
+				<Wrapper />
+			</Provider>
+		</DiProvider>
 	);
 }
 

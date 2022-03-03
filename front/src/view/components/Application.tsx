@@ -1,30 +1,33 @@
 import * as React from "react";
 import "./Application.scss";
-import Brightness5Icon from "@material-ui/icons/Brightness5";
-import Brightness3Icon from "@material-ui/icons/Brightness3";
+import Brightness5Icon from "@mui/icons-material/Brightness5";
+import Brightness3Icon from "@mui/icons-material/Brightness3";
+import Apps from "./updater/Apps";
 import { useAppDispatch, useAppSelector } from "../../store";
-import { toggleTheme } from "../../store/module/theme/action";
+import { toggleTheme } from "../../store/module/theme/theme.action";
 import { createDrawerAction, withDrawer } from "./utils/drawer/Drawer.hoc";
-import { Box } from "@material-ui/core";
-import AppStorage from "./appStorage/AppStorage";
+import { Box } from "@mui/material";
 
 function Application() {
 	const dispatch = useAppDispatch();
 
-	const { theme, icon } = useAppSelector(s => ({
+	const { theme, themeIcon, logged } = useAppSelector(s => ({
 		theme: s.theme.current,
-		icon: s.theme.current === "dark" ? <Brightness5Icon /> : <Brightness3Icon />,
+		themeIcon: s.theme.current === "dark" ? <Brightness5Icon /> : <Brightness3Icon />,
+		logged: false,
 	}));
 
+	const actions = [
+		createDrawerAction(theme === "dark" ? "Light Mode" : "Dark Mode", {
+			icon: themeIcon,
+			onClick: () => dispatch(toggleTheme()),
+		}),
+	];
+
 	const drawer = withDrawer({
-		component: <AppStorage />,
-		actions: [
-			createDrawerAction(theme === "dark" ? "Light Mode" : "Dark Mode", {
-				icon,
-				onClick: () => dispatch(toggleTheme()),
-			}),
-		],
-		title: "Apps updater",
+		component: <Apps />,
+		actions,
+		title: "Apps",
 	});
 
 	return (

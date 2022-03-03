@@ -4,7 +4,8 @@
     {
         Win32,
         Win64,
-        Linux64,
-        Linux32
+        LinuxDeb,
+        LinuxRpm,
+        LinuxSnap,
     }
 }

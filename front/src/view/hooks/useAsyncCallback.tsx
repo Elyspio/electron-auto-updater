@@ -38,8 +38,8 @@ export function useAsyncCallback<T extends (...args: any[]) => Promise<any>>(cal
 				setIsExecuting(false);
 				throw e;
 			}
-			// eslint-disable-next-line react-hooks/exhaustive-deps
 		},
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[...deps, setIsExecuting, setError, callback]
 	) as T;
 
