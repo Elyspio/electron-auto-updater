@@ -27,6 +27,11 @@ export function App({ name }: AppProps) {
 		return [AppArch.Win32, AppArch.Win64].includes(arch as any) ? "primary" : "success";
 	}, []);
 
+
+	const download = useCallback((version, arch) => () => {
+		services.apps.download(name, arch, version)
+	}, [services, name])
+
 	return (
 		<Grid container className="App" direction={"column"}>
 			<Grid container item justifyContent={"center"} my={2}>
@@ -40,14 +45,14 @@ export function App({ name }: AppProps) {
 			<Grid spacing={2} item container flexDirection={"column"} margin={0} width={"100%"}>
 				{Object.entries(versions).map(([arch, versions]) => (
 					<Grid item container key={arch} bgcolor={"background.default"} p={2} my={1}>
-						<Grid item container xs={1}>
+						<Grid item container minWidth={100} xs={1}>
 							<Chip label={arch} color={getColor(arch)} variant={"outlined"} />
 						</Grid>
 
-						<Grid item container spacing={2} xs ml={1}>
+						<Grid item container spacing={2} xs>
 							{versions.map(version => (
 								<Grid item key={version.raw}>
-									<Button color={"inherit"} variant={"text"}>
+									<Button color={"inherit"} variant={"text"} onClick={download(version, arch)}>
 										{version.raw}
 									</Button>
 								</Grid>

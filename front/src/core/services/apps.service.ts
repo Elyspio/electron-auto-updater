@@ -2,6 +2,8 @@ import { inject, injectable } from "inversify";
 import { AppsApiClient } from "../apis/backend";
 import { DiKeysApi } from "../di/apis/di.keys.api";
 import { AppArch, AppVersion } from "../apis/backend/generated";
+import { toast } from "react-toastify";
+import { AppDownloadProgress } from "../../view/components/updater/Toasts";
 
 @injectable()
 export class AppsService {
@@ -35,7 +37,24 @@ export class AppsService {
 	}
 
 	public async download(name: string, arch: AppArch, version: AppVersion) {
-		const { data } = await this.api.client.getBinary(name, version.raw, arch, { responseType: "arraybuffer" });
+		const fullName = `${name} ${arch} ${version.raw}`;
+		const toastId = toast.loading(AppDownloadProgress({ state: "waiting", arch, version, name }));
+
+		const { data } = await this.api.client.getBinary(name, version.raw, arch, {
+			responseType: "arraybuffer",
+			onDownloadProgress: (progressEvent: ProgressEvent) => {
+				const percentage = progressEvent.loaded / progressEvent.total;
+				if (percentage >= 100) {
+					toast.done(toastId);
+				} else {
+					toast.update(toastId, {
+						render: AppDownloadProgress({ state: "downloading", arch, version, name }),
+						progress: percentage,
+					});
+					// toast.update(toastId, { render: `${fullName}: ${percentage.toFixed(0)}%` });
+				}
+			},
+		});
 		const url = window.URL.createObjectURL(new Blob([data as ArrayBuffer]));
 		const link = document.createElement("a");
 		link.href = url;
