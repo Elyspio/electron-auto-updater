@@ -57,6 +57,29 @@ public class AppController : ControllerBase
 			Binary = await content.ReadAllBytes()
 		});
 	}
+	
+	/// <summary>
+	/// Add a new version for this application from bytes
+	/// </summary>
+	/// <param name="app"></param>
+	/// <param name="version"></param>
+	/// <param name="arch"></param>
+	/// <param name="content"></param>
+	[HttpPost("{app}/{arch}/{version}/bytes")]
+	[RequestSizeLimit(long.MaxValue)]
+	public async Task AddFromBytes([Required] string app, [Required] string version, [Required] AppArch arch, [FromBody] [Required] byte[] content)
+	{
+		await _service.Add(new()
+		{
+			Metadata = new AppMetadata
+			{
+				Arch = arch,
+				Version = version,
+				Name = app
+			},
+			Binary = content
+		});
+	}
 
 
 	/// <summary>
