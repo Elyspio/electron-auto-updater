@@ -1,34 +1,48 @@
-# Building back
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS builder-back
-WORKDIR /app
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS builder-back
 
-COPY back/AppUpdater.sln ./AppUpdater.sln
-COPY back/Core/Core.csproj ./Core/Core.csproj
-COPY back/Db/Db.csproj ./Db/Db.csproj
-COPY back/Abstractions/Abstractions.csproj ./Abstractions/Abstractions.csproj
-COPY back/Web/Web.csproj ./Web/Web.csproj
+ARG MAIN_CSPROJ_PATH
+ARG ROOT_FOLDER
 
-RUN dotnet restore
+ENV SRC /app
 
-COPY back .
-RUN dotnet publish -c Release -o out
+RUN mkdir ${SRC}
+WORKDIR ${SRC}
+
+
+# Copy only .csproj located in root directory to add cache to dotnet restore
+COPY ${ROOT_FOLDER}*/*.csproj ./${ROOT_FOLDER}
+WORKDIR ${ROOT_FOLDER}
+RUN find *.csproj | sed -r -e 's/.*\.(.+).csproj/\1/g' | xargs mkdir -p
+RUN find *.csproj | sed -r -e 's/(.*\.(.+).csproj)/.\/\1 .\/\2/g' | xargs -I % sh -c 'mv %'
+
+
+# endregion optimize dotnet restore
+
+COPY ${ROOT_FOLDER} ${SRC}/${ROOT_FOLDER}
+
+
+
+WORKDIR ${SRC}/${ROOT_FOLDER}
+RUN dotnet restore ${MAIN_CSPROJ_PATH}
+RUN dotnet publish ${MAIN_CSPROJ_PATH} --no-restore -o /app/out
 
 
 # Building front
 FROM --platform=linux/amd64 node:16 as builder-front
 
-COPY front/package.json /front/package.json
-COPY front/package-lock.json /front/package-lock.json
-RUN cd /front && npm install
+COPY front/package.json /front/
+COPY front/yarn.lock /front/
+RUN cd /front && yarn
 
-COPY front/tsconfig.json /front/tsconfig.json
-COPY front/public /front/public
-COPY front/src /front/src
-RUN cd /front && npm run build
+COPY front /front/
+RUN cd /front && yarn build
 
 
 # Running
-FROM mcr.microsoft.com/dotnet/aspnet:6.0-alpine AS final
+FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS production
+
+ARG ENTRY_DLL
+ENV ENTRY_DLL ${ENTRY_DLL}
 
 WORKDIR /back
 COPY --from=builder-back /app/out .
@@ -37,5 +51,4 @@ COPY --from=builder-front /front/build /back/wwwroot
 ENV FRONT_PATH /back/wwwroot
 
 EXPOSE 4000
-ENTRYPOINT ["dotnet", "Web.dll"]
-
+CMD dotnet ${ENTRY_DLL}
