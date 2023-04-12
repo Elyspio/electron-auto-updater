@@ -1,3 +1,4 @@
+import React from "react";
 import { AppArch, AppVersion } from "../../../core/apis/backend/generated";
 import { Grid, Typography } from "@mui/material";
 

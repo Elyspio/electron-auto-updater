@@ -1,6 +1,6 @@
 import { Box, Container, Grid, Paper } from "@mui/material";
 import "./Apps.scss";
-import * as React from "react";
+import React from "react";
 import { useInjection } from "inversify-react";
 import { AppsService } from "../../../core/services/apps.service";
 import { DiKeysService } from "../../../core/di/services/di.keys.service";

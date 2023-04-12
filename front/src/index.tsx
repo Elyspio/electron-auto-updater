@@ -11,6 +11,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import { Provider as DiProvider } from "inversify-react";
 import { container } from "./core/di";
+import {createRoot} from "react-dom/client";
 
 declare module "@mui/styles/defaultTheme" {
 	// eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -18,10 +19,7 @@ declare module "@mui/styles/defaultTheme" {
 }
 
 function Wrapper() {
-	const { theme, current } = useAppSelector(state => ({
-		theme: state.theme.current === "dark" ? themes.dark : themes.light,
-		current: state.theme.current,
-	}));
+	const { theme, current } = useAppSelector((state) => ({ theme: state.theme.current === "dark" ? themes.dark : themes.light, current: state.theme.current }));
 
 	return (
 		<StyledEngineProvider injectFirst>
@@ -43,7 +41,7 @@ function App() {
 	);
 }
 
-ReactDOM.render(<App />, document.getElementById("root"));
+createRoot(document.getElementById("root")!).render(<App />);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

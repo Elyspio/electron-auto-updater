@@ -4,6 +4,7 @@ import { DiKeysApi } from "../di/apis/di.keys.api";
 import { AppArch, AppVersion } from "../apis/backend/generated";
 import { toast } from "react-toastify";
 import { AppDownloadProgress } from "../../view/components/updater/Toasts";
+import { download } from "../utils/web";
 
 @injectable()
 export class AppsService {
@@ -15,11 +16,11 @@ export class AppsService {
 	}
 
 	public getAppsName() {
-		return this.api.client.getApps().then(res => res.data);
+		return this.api.client.getApps();
 	}
 
 	public async getAppVersions(name: string) {
-		const allMetadata = await this.api.client.getAllMetadata(name).then(res => res.data);
+		const allMetadata = await this.api.client.getAllMetadata(name);
 
 		const ret: Record<AppArch, AppVersion[]> = {
 			Win32: [],
@@ -40,10 +41,9 @@ export class AppsService {
 		const fullName = `${name} ${arch} ${version.raw}`;
 		const toastId = toast.loading(AppDownloadProgress({ state: "waiting", arch, version, name }));
 
-		const { data } = await this.api.client.getBinary(name, version.raw, arch, {
-			responseType: "arraybuffer",
-			onDownloadProgress: (progressEvent: ProgressEvent) => {
-				const percentage = progressEvent.loaded / progressEvent.total;
+		const { data, fileName } = await this.api.client.getBinary(name, version.raw, arch, undefined, {
+			onDownloadProgress: (progressEvent) => {
+				const percentage = progressEvent.loaded / progressEvent.total!;
 				if (percentage >= 100) {
 					toast.done(toastId);
 				} else {
@@ -51,20 +51,23 @@ export class AppsService {
 						render: AppDownloadProgress({ state: "downloading", arch, version, name }),
 						progress: percentage,
 					});
-					// toast.update(toastId, { render: `${fullName}: ${percentage.toFixed(0)}%` });
 				}
 			},
 		});
-		const url = window.URL.createObjectURL(new Blob([data as ArrayBuffer]));
-		const link = document.createElement("a");
-		link.href = url;
-		link.setAttribute("download", `${name}-${arch}-${version.raw}`); //or any other extension
-		document.body.appendChild(link);
-		link.click();
-		document.body.removeChild(link);
+		download(`${name}-${arch}-${version.raw}${this.getFileExtension(arch)}`, await data.arrayBuffer());
 	}
 
-	public async upload(name: string, arch: AppArch, version: AppVersion, binary: any) {
-		await this.api.client.add(name, version.raw, arch, btoa(binary));
+	private getFileExtension(arch: AppArch) {
+		switch (arch) {
+			case "Win32":
+			case "Win64":
+				return ".exe";
+			case "LinuxDeb":
+				return ".deb";
+			case "LinuxSnap":
+				return ".snap";
+			case "LinuxRpm":
+				return ".rpm";
+		}
 	}
 }
