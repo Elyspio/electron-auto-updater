@@ -1,6 +1,5 @@
 import "reflect-metadata";
 import React from "react";
-import ReactDOM from "react-dom";
 import "./index.scss";
 import { Provider } from "react-redux";
 import store, { useAppSelector } from "./store";
@@ -11,7 +10,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import { Provider as DiProvider } from "inversify-react";
 import { container } from "./core/di";
-import {createRoot} from "react-dom/client";
+import { createRoot } from "react-dom/client";
 
 declare module "@mui/styles/defaultTheme" {
 	// eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -19,7 +18,10 @@ declare module "@mui/styles/defaultTheme" {
 }
 
 function Wrapper() {
-	const { theme, current } = useAppSelector((state) => ({ theme: state.theme.current === "dark" ? themes.dark : themes.light, current: state.theme.current }));
+	const { theme, current } = useAppSelector(state => ({
+		theme: state.theme.current === "dark" ? themes.dark : themes.light,
+		current: state.theme.current,
+	}));
 
 	return (
 		<StyledEngineProvider injectFirst>

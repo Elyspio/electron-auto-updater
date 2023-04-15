@@ -119,10 +119,8 @@ internal class AppRepository : BaseRepository<AppEntity>, IAppRepository
 		foreach (AppArch arch in Enum.GetValues(typeof(AppArch)))
 		{
 			var archApps = apps.Where(app => app.Metadata.Arch == arch).ToList();
-
-			if (!archApps.Any()) throw new HttpException(HttpStatusCode.NotFound, $"Could not find app {Log.F(name)}");
-			
-			dict[arch] = archApps.Max()!.Metadata.Version;
+			if(archApps.Any())
+				dict[arch] = archApps.Max()!.Metadata.Version;
 		}
 
 		logger.Exit();

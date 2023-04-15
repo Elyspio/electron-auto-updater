@@ -9,16 +9,12 @@ public class MongoContext
 {
     public MongoContext(IConfiguration configuration)
     {
-        var conf = configuration.GetRequiredSection(DbConfig.Section).Get<DbConfig>()!;
+        var cs = configuration["Database"];
 
-        var host = Env.Get("DB_HOST", conf.Host);
-        var username = Env.Get("DB_USERNAME", conf.Username);
-        var password = Env.Get("DB_PASSWORD", conf.Password);
-        var database = Env.Get("DB_DATABASE", conf.Database);
-        var port = Env.Get("DB_PORT", conf.Port);
-        var client = new MongoClient($"mongodb://{username}:{password}@{host}:{port}");
-        Console.WriteLine($"Connecting to Database '{database}' on {host}:{port} as {username}");
-        MongoDatabase = client.GetDatabase(database);
+        var url = new MongoUrl(cs);
+        var client = new MongoClient(url);
+        Console.WriteLine($"Connecting to Database '{url.DatabaseName}' on {url.Url} as {url.Username}");
+        MongoDatabase = client.GetDatabase(url.DatabaseName);
     }
 
     /// <summary>

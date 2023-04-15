@@ -11,7 +11,7 @@ import { Box } from "@mui/material";
 function Application() {
 	const dispatch = useAppDispatch();
 
-	const { theme, themeIcon, logged } = useAppSelector(s => ({
+	const { theme, themeIcon } = useAppSelector(s => ({
 		theme: s.theme.current,
 		themeIcon: s.theme.current === "dark" ? <Brightness5Icon /> : <Brightness3Icon />,
 		logged: false,

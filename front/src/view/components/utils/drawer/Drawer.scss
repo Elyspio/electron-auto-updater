@@ -1,10 +1,7 @@
 $header-size: 4rem;
 
-
 .Drawer {
-
   height: calc(100% - #{$header-size});
-
 
   main {
     display: flex;
@@ -31,7 +28,6 @@ $header-size: 4rem;
       height: 100%;
     }
   }
-
 }
 
 .Drawer-hoc {

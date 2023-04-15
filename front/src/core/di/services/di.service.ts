@@ -4,7 +4,7 @@ import { DiKeysService } from "./di.keys.service";
 import { container } from "../index";
 import { AppsService } from "../../services/apps.service";
 
-container.bind<AppsService>(DiKeysService.apps).to(AppsService);
+container.bind(AppsService).toSelf();
 
 container.bind<ThemeService>(DiKeysService.theme).to(ThemeService);
 

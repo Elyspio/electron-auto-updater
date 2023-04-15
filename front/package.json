@@ -25,9 +25,13 @@
 		"react-redux": "8.0.5",
 		"react-toastify": "^9.1.2",
 		"redux": "4.2.1",
-		"reflect-metadata": "^0.1.13"
+		"reflect-metadata": "^0.1.13",
+		"semver": "^7.4.0"
 	},
 	"devDependencies": {
+		"eslint-plugin-prettier": "^4.2.1",
+		"eslint-config-prettier": "^8.8.0",
+		"eslint": "^8.38.0",
 		"@craco/craco": "^7.1.0",
 		"@types/node": "^18.15.11",
 		"@types/react": "^18.0.35",
@@ -36,10 +40,22 @@
 		"craco-swc": "^0.5.1",
 		"react-scripts": "^5.0.1",
 		"sass": "^1.62.0",
-		"typescript": "^5.0.4"
+		"typescript": "^5.0.4",
+		"prettier": "^2.8.7"
 	},
 	"eslintConfig": {
-		"extends": "react-app"
+		"extends": [
+			"react-app",
+			"plugin:prettier/recommended",
+			"eslint:recommended"
+		],
+		"plugins": [
+			"prettier"
+		],
+		"rules": {
+			"prettier/prettier": "error",
+			"no-mixed-spaces-and-tabs": "off"
+		}
 	},
 	"browserslist": {
 		"production": [

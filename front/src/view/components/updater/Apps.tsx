@@ -1,35 +1,29 @@
-import { Box, Container, Grid, Paper } from "@mui/material";
+import { Container, Paper, Stack } from "@mui/material";
 import "./Apps.scss";
-import React from "react";
-import { useInjection } from "inversify-react";
-import { AppsService } from "../../../core/services/apps.service";
-import { DiKeysService } from "../../../core/di/services/di.keys.service";
+import React, { useEffect } from "react";
 import { App } from "./App";
-import { useAsyncEffect } from "../../hooks/useAsyncEffect";
+import { useAppSelector } from "../../../store";
+import { getApps } from "../../../store/module/app/apps.async.actions";
+import { useActions } from "../../hooks/useActions";
 
 const Apps = () => {
-	const services = {
-		apps: useInjection<AppsService>(DiKeysService.apps),
-	};
+	const apps = useAppSelector(s => Object.keys(s.apps.all));
 
-	const [apps, setApps] = React.useState<string[]>([]);
+	const actions = useActions({ getApps });
 
-	useAsyncEffect(async () => {
-		setApps(await services.apps.getAppsName());
-	}, [services.apps]);
+	useEffect(() => {
+		console.count("Apps");
+		actions.getApps();
+	}, [actions]);
 
 	return (
 		<Container className={"Apps"}>
 			<Paper>
-				<Box p={2}>
-					<Grid container direction={"column"} spacing={2}>
-						{apps.map(app => (
-							<Grid item key={app}>
-								<App name={app} />
-							</Grid>
-						))}
-					</Grid>
-				</Box>
+				<Stack p={2} spacing={2}>
+					{apps.map(app => (
+						<App key={app} name={app} />
+					))}
+				</Stack>
 			</Paper>
 		</Container>
 	);

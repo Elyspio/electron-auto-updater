@@ -2,14 +2,14 @@ import React from "react";
 import { AppArch, AppVersion } from "../../../core/apis/backend/generated";
 import { Grid, Typography } from "@mui/material";
 
-type AppDownloadProgress = {
+type AppDownloadProgressProps = {
 	name: string;
 	arch: AppArch;
 	version: AppVersion;
 	state: "waiting" | "downloading" | "downloaded";
 };
 
-export const AppDownloadProgress = ({ arch, name, version, state }: AppDownloadProgress) => {
+export const AppDownloadProgress = ({ arch, name, version, state }: AppDownloadProgressProps) => {
 	return (
 		<Grid container direction={"column"}>
 			<Grid item>

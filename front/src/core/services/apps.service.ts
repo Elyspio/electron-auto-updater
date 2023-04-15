@@ -1,14 +1,13 @@
 import { inject, injectable } from "inversify";
 import { AppsApiClient } from "../apis/backend";
-import { DiKeysApi } from "../di/apis/di.keys.api";
 import { AppArch, AppVersion } from "../apis/backend/generated";
 import { toast } from "react-toastify";
-import { AppDownloadProgress } from "../../view/components/updater/Toasts";
+import { AppDownloadProgress } from "../../view/components/updater/AppDownloadProgress";
 import { download } from "../utils/web";
 
 @injectable()
 export class AppsService {
-	@inject(DiKeysApi.apps)
+	@inject(AppsApiClient)
 	private api!: AppsApiClient;
 
 	constructor() {
@@ -38,11 +37,10 @@ export class AppsService {
 	}
 
 	public async download(name: string, arch: AppArch, version: AppVersion) {
-		const fullName = `${name} ${arch} ${version.raw}`;
 		const toastId = toast.loading(AppDownloadProgress({ state: "waiting", arch, version, name }));
 
-		const { data, fileName } = await this.api.client.getBinary(name, version.raw, arch, undefined, {
-			onDownloadProgress: (progressEvent) => {
+		const { data } = await this.api.client.getBinary(name, version.raw, arch, undefined, {
+			onDownloadProgress: progressEvent => {
 				const percentage = progressEvent.loaded / progressEvent.total!;
 				if (percentage >= 100) {
 					toast.done(toastId);
@@ -54,7 +52,11 @@ export class AppsService {
 				}
 			},
 		});
-		download(`${name}-${arch}-${version.raw}${this.getFileExtension(arch)}`, await data.arrayBuffer());
+		download(`${name} ${arch} ${version.raw}${this.getFileExtension(arch)}`, await data.arrayBuffer());
+	}
+
+	public async delete(name: string, arch: AppArch, version: AppVersion) {
+		await this.api.client.delete(name, version.raw, arch);
 	}
 
 	private getFileExtension(arch: AppArch) {

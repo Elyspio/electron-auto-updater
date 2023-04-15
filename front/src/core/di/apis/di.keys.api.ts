@@ -1,3 +1,1 @@
-export const DiKeysApi = {
-	apps: Symbol.for("AppsApi"),
-};
+export const DiKeysApi = {};
