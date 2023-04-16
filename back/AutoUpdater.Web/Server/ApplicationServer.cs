@@ -14,14 +14,10 @@ public static class ApplicationServer
 	{
 		// Allow CORS
 
-		if (application.Environment.IsDevelopment())
-		{
-			application.UseCors();
-		}
+		if (application.Environment.IsDevelopment()) application.UseCors();
 
 		application.UseOpenApi(settings =>
 		{
-
 			if (!application.Environment.IsProduction()) return;
 
 			settings.PostProcess = (document, request) =>

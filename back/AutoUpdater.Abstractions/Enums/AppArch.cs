@@ -1,11 +1,10 @@
-﻿namespace AutoUpdater.Abstractions.Enums
+﻿namespace AutoUpdater.Abstractions.Enums;
+
+public enum AppArch
 {
-    public enum AppArch
-    {
-        Win32,
-        Win64,
-        LinuxDeb,
-        LinuxRpm,
-        LinuxSnap,
-    }
+	Win32,
+	Win64,
+	LinuxDeb,
+	LinuxRpm,
+	LinuxSnap
 }

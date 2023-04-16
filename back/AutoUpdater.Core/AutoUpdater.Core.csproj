@@ -8,12 +8,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Scrutor" Version="4.2.2" />
-        <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
+        <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="7.0.0"/>
+        <PackageReference Include="Scrutor" Version="4.2.2"/>
+        <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\AutoUpdater.Abstractions\AutoUpdater.Abstractions.csproj" />
+        <ProjectReference Include="..\AutoUpdater.Abstractions\AutoUpdater.Abstractions.csproj"/>
     </ItemGroup>
 
 </Project>

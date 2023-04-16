@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 namespace AutoUpdater.Web.Controllers;
 
 /// <summary>
-/// Manage stored applications
+///     Manage stored applications
 /// </summary>
 [ApiController]
 [Route("api/apps", Name = "Apps")]
@@ -17,7 +17,7 @@ public class AppController : ControllerBase
 	private readonly IAppService _service;
 
 	/// <summary>
-	/// AppController's constructor
+	///     AppController's constructor
 	/// </summary>
 	/// <param name="stackService"></param>
 	public AppController(IAppService stackService)
@@ -26,7 +26,7 @@ public class AppController : ControllerBase
 	}
 
 	/// <summary>
-	/// Returns all apps app
+	///     Returns all apps app
 	/// </summary>
 	/// <returns></returns>
 	[HttpGet("")]
@@ -36,7 +36,7 @@ public class AppController : ControllerBase
 	}
 
 	/// <summary>
-	/// Add a new version for this application
+	///     Add a new version for this application
 	/// </summary>
 	/// <param name="app"></param>
 	/// <param name="version"></param>
@@ -48,7 +48,7 @@ public class AppController : ControllerBase
 	{
 		await _service.Add(new()
 		{
-			Metadata = new AppMetadata
+			Metadata = new()
 			{
 				Arch = arch,
 				Version = version,
@@ -57,9 +57,9 @@ public class AppController : ControllerBase
 			Binary = await content.ReadAllBytes()
 		});
 	}
-	
+
 	/// <summary>
-	/// Add a new version for this application from bytes
+	///     Add a new version for this application from bytes
 	/// </summary>
 	/// <param name="app"></param>
 	/// <param name="version"></param>
@@ -71,7 +71,7 @@ public class AppController : ControllerBase
 	{
 		await _service.Add(new()
 		{
-			Metadata = new AppMetadata
+			Metadata = new()
 			{
 				Arch = arch,
 				Version = version,
@@ -83,7 +83,7 @@ public class AppController : ControllerBase
 
 
 	/// <summary>
-	/// Delete a specific version for this application
+	///     Delete a specific version for this application
 	/// </summary>
 	/// <param name="app"></param>
 	/// <param name="version"></param>
@@ -97,7 +97,7 @@ public class AppController : ControllerBase
 	}
 
 	/// <summary>
-	/// Get binary for this app/arch/version
+	///     Get binary for this app/arch/version
 	/// </summary>
 	/// <param name="app"></param>
 	/// <param name="version"></param>
@@ -116,7 +116,7 @@ public class AppController : ControllerBase
 	}
 
 	/// <summary>
-	/// Get all versions for a specific arch
+	///     Get all versions for a specific arch
 	/// </summary>
 	/// <param name="app"></param>
 	/// <returns></returns>
@@ -127,7 +127,7 @@ public class AppController : ControllerBase
 	}
 
 	/// <summary>
-	/// Get all versions for all arch for 
+	///     Get all versions for all arch for
 	/// </summary>
 	/// <param name="app"></param>
 	/// <returns></returns>
@@ -136,9 +136,9 @@ public class AppController : ControllerBase
 	{
 		return _service.GetAllMetadata(app);
 	}
-	
+
 	/// <summary>
-	/// Get the latest version for this app
+	///     Get the latest version for this app
 	/// </summary>
 	/// <param name="app"></param>
 	/// <returns></returns>
@@ -149,7 +149,7 @@ public class AppController : ControllerBase
 	}
 
 	/// <summary>
-	/// Get latest version for this arch
+	///     Get latest version for this arch
 	/// </summary>
 	/// <param name="app"></param>
 	/// <param name="arch"></param>

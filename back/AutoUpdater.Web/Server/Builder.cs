@@ -1,10 +1,10 @@
 ﻿using AutoUpdater.Abstractions.Interfaces.Injections;
-using AutoUpdater.Web.Filters;
-using AutoUpdater.Web.Processors;
-using AutoUpdater.Web.Utils;
 using AutoUpdater.Core.Injections;
 using AutoUpdater.Core.Utils;
 using AutoUpdater.Db.Injections;
+using AutoUpdater.Web.Filters;
+using AutoUpdater.Web.Processors;
+using AutoUpdater.Web.Utils;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Newtonsoft.Json.Converters;
@@ -41,7 +41,6 @@ public class ServerBuilder
 
 		// Setup CORS
 		if (builder.Environment.IsDevelopment())
-		{
 			builder.Services.AddCors(options =>
 				{
 					options.AddDefaultPolicy(b =>
@@ -54,9 +53,6 @@ public class ServerBuilder
 					);
 				}
 			);
-		}
-		
-	
 
 
 		builder.Services.AddModule<CoreModule>(builder.Configuration);
@@ -73,9 +69,10 @@ public class ServerBuilder
 		// Convert Enum to String 
 		builder.Services.AddControllers(o =>
 				{
+					o.RespectBrowserAcceptHeader = true;
 					o.Conventions.Add(new ControllerDocumentationConvention());
-					o.OutputFormatters.RemoveType<StringOutputFormatter>();
 					o.Filters.Add<HttpExceptionFilter>();
+					o.OutputFormatters.RemoveType<HttpNoContentOutputFormatter>();
 				}
 			)
 			.AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()))

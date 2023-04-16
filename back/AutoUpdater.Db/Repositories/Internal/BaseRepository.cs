@@ -13,9 +13,9 @@ public abstract class BaseRepository<T>
 
 	protected BaseRepository(IConfiguration configuration, ILogger<BaseRepository<T>> logger)
 	{
-		Context = new MongoContext(configuration);
+		Context = new(configuration);
 		CollectionName = (typeof(T).GetCustomAttributes(typeof(BsonCollectionAttribute), true).FirstOrDefault() as BsonCollectionAttribute)!.CollectionName;
-		this.Logger = logger;
+		Logger = logger;
 	}
 
 	protected IMongoCollection<T> EntityCollection => Context.MongoDatabase.GetCollection<T>(CollectionName);

@@ -1,7 +1,6 @@
 ﻿using AutoUpdater.Abstractions.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Newtonsoft.Json;
 
 namespace AutoUpdater.Web.Filters;
 
@@ -21,8 +20,9 @@ public class HttpExceptionFilter : ExceptionFilterAttribute
 				Value = ex
 			};
 			Console.Error.WriteLineAsync($"Error: {ex.Code} ({(int) ex.Code}) | {ex.Message} | {ex.StackTrace?.Trim()}");
-			
-		};
+		}
+
+		;
 		base.OnException(context);
 	}
 }

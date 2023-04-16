@@ -1,13 +1,12 @@
 ﻿using AutoUpdater.Abstractions.Models;
 using AutoUpdater.Db.Configs;
-using Microsoft.AspNetCore.Components.Routing;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace AutoUpdater.Db.Entities;
 
 [BsonCollection("Apps")]
-public class AppEntity: IComparable<AppEntity>
+public class AppEntity : IComparable<AppEntity>
 {
 	[BsonId]
 	[BsonRepresentation(BsonType.ObjectId)]

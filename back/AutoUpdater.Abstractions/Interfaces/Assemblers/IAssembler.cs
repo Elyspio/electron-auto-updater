@@ -2,9 +2,9 @@
 
 public interface IAssembler<TA, TB>
 {
-    TB Convert(TA obj);
-    TA Convert(TB obj);
+	TB Convert(TA obj);
+	TA Convert(TB obj);
 
-    List<TB> Convert(List<TA> objs);
-    List<TA> Convert(List<TB> objs);
+	List<TB> Convert(List<TA> objs);
+	List<TA> Convert(List<TB> objs);
 }

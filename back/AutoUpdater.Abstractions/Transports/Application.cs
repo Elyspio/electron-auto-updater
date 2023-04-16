@@ -1,12 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using AutoUpdater.Abstractions.Models;
 
-namespace AutoUpdater.Abstractions.Models
+namespace AutoUpdater.Abstractions.Transports;
+
+public class App
 {
-    public class App
-    {
-        public required byte[] Binary { get; set; }
+	public required byte[] Binary { get; set; }
 
-        public required AppMetadata Metadata { get; set; }
-
-    }
+	public required AppMetadata Metadata { get; set; }
 }

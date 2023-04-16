@@ -3,6 +3,7 @@ using AutoUpdater.Abstractions.Exceptions;
 using AutoUpdater.Abstractions.Helpers;
 using AutoUpdater.Abstractions.Interfaces.Repositories;
 using AutoUpdater.Abstractions.Models;
+using AutoUpdater.Abstractions.Transports;
 using AutoUpdater.Db.Entities;
 using AutoUpdater.Db.Repositories.Internal;
 using Microsoft.Extensions.Configuration;
@@ -21,7 +22,7 @@ internal class AppRepository : BaseRepository<AppEntity>, IAppRepository
 
 	public AppRepository(IConfiguration configuration, ILogger<AppRepository> logger) : base(configuration, logger)
 	{
-		_gridFsBucket = new GridFSBucket(Context.MongoDatabase, new GridFSBucketOptions
+		_gridFsBucket = new(Context.MongoDatabase, new()
 		{
 			BucketName = CollectionName
 		});
@@ -46,7 +47,7 @@ internal class AppRepository : BaseRepository<AppEntity>, IAppRepository
 
 		var file = new AppEntity
 		{
-			Metadata = app.Metadata,
+			Metadata = app.Metadata
 		};
 
 		await EntityCollection.InsertOneAsync(file);
@@ -73,21 +74,6 @@ internal class AppRepository : BaseRepository<AppEntity>, IAppRepository
 		logger.Exit();
 
 		return metadatas;
-	}
-
-
-	private Task<AppEntity> Get(string name, AppVersion version, AppArch arch)
-	{
-		var logger = _logger.Enter($"{Log.F(name)} {Log.F(arch)} {Log.F(version)}");
-
-		var app = EntityCollection
-			.AsQueryable()
-			.Where(app => app.Metadata.Name == name && app.Metadata.Version == version && app.Metadata.Arch == arch)
-			.FirstOrDefaultAsync();
-
-		logger.Exit();
-
-		return app;
 	}
 
 	public async Task<byte[]> GetBinary(string name, AppVersion version, AppArch arch)
@@ -119,7 +105,7 @@ internal class AppRepository : BaseRepository<AppEntity>, IAppRepository
 		foreach (AppArch arch in Enum.GetValues(typeof(AppArch)))
 		{
 			var archApps = apps.Where(app => app.Metadata.Arch == arch).ToList();
-			if(archApps.Any())
+			if (archApps.Any())
 				dict[arch] = archApps.Max()!.Metadata.Version;
 		}
 
@@ -134,7 +120,7 @@ internal class AppRepository : BaseRepository<AppEntity>, IAppRepository
 
 		var versions = await GetLatestVersions(name);
 		var version = versions[arch];
-		
+
 		logger.Exit();
 
 		return version;
@@ -154,14 +140,39 @@ internal class AppRepository : BaseRepository<AppEntity>, IAppRepository
 	public async Task<AppVersion> GetLatestVersion(string name)
 	{
 		var logger = _logger.Enter(Log.F(name));
-		
+
 		var versions = await GetLatestVersions(name);
 
-		var latest =  versions.Values.Max() ?? throw new HttpException(HttpStatusCode.NotFound, $"Could not find app {Log.F(name)}");
-
+		var latest = versions.Values.Max() ?? throw new HttpException(HttpStatusCode.NotFound, $"Could not find app {Log.F(name)}");
 
 		logger.Exit();
-		
+
 		return latest;
+	}
+
+	public async Task<DateTime> GetReleaseDate(string name, AppVersion version, AppArch arch)
+	{
+		var logger = _logger.Enter($"{Log.F(name)}");
+
+		var entity = await EntityCollection.AsQueryable().SingleOrDefaultAsync(app => app.Metadata.Name == name && app.Metadata.Version == version && app.Metadata.Arch == arch);
+
+		logger.Exit();
+
+		return entity.Id.CreationTime;
+	}
+
+
+	private Task<AppEntity> Get(string name, AppVersion version, AppArch arch)
+	{
+		var logger = _logger.Enter($"{Log.F(name)} {Log.F(arch)} {Log.F(version)}");
+
+		var app = EntityCollection
+			.AsQueryable()
+			.Where(app => app.Metadata.Name == name && app.Metadata.Version == version && app.Metadata.Arch == arch)
+			.FirstOrDefaultAsync();
+
+		logger.Exit();
+
+		return app;
 	}
 }

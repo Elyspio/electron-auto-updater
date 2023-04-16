@@ -17,5 +17,6 @@ public class CoreModule : IDotnetModule
 			.WithSingletonLifetime()
 		);
 
+		services.AddMemoryCache();
 	}
 }
