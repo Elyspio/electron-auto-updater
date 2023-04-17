@@ -1,9 +1,8 @@
-﻿using AutoUpdater.Abstractions.Models;
-using AutoUpdater.Db.Configs;
+﻿using AutoUpdater.Abstractions.Extensions;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace AutoUpdater.Db.Entities;
+namespace AutoUpdater.Abstractions.Models;
 
 [BsonCollection("Apps")]
 public class AppEntity : IComparable<AppEntity>

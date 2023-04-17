@@ -13,17 +13,19 @@ namespace AutoUpdater.Core.Services;
 public class ElectronService : IElectronService
 {
 	private readonly IAppRepository _appRepository;
+	private readonly IBlockmapRepository _blockmapRepository;
 	private readonly IAppService _appService;
 	private readonly ILogger<ElectronService> _logger;
 	private readonly IMemoryCache _memoryCache;
 
 
-	public ElectronService(IAppService appService, ILogger<ElectronService> logger, IAppRepository appRepository, IMemoryCache memoryCache)
+	public ElectronService(IAppService appService, ILogger<ElectronService> logger, IAppRepository appRepository, IMemoryCache memoryCache, IBlockmapRepository blockmapRepository)
 	{
 		_appService = appService;
 		_logger = logger;
 		_appRepository = appRepository;
 		_memoryCache = memoryCache;
+		_blockmapRepository = blockmapRepository;
 	}
 
 	public async Task<ElectronBuilderInfo> GetLatestYml(string app, AppArch arch)
@@ -66,6 +68,26 @@ public class ElectronService : IElectronService
 		logger.Exit();
 
 		return info;
+	}
+
+	public async Task<byte[]> GetBlockmap(string app, AppArch arch, string version)
+	{
+		var logger = _logger.Enter($"{Log.F(app)} {Log.F(arch)} {Log.F(version)}");
+
+		var entity = await _blockmapRepository.GetBlockmap(app, arch, version);
+
+		logger.Exit();
+
+		return entity.Content;
+	}
+
+	public async Task AddBlockmap(string app, AppArch arch, string version, byte[] content)
+	{
+		var logger = _logger.Enter($"{Log.F(app)} {Log.F(arch)} {Log.F(version)} {Log.F(content.Length)}");
+
+		await _blockmapRepository.AddBlockmap(app, arch, version, content);
+
+		logger.Exit();
 	}
 
 	private static string GetCacheKey(string app, AppArch arch, AppVersion version)

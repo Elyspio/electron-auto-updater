@@ -4,7 +4,6 @@ using AutoUpdater.Abstractions.Helpers;
 using AutoUpdater.Abstractions.Interfaces.Repositories;
 using AutoUpdater.Abstractions.Models;
 using AutoUpdater.Abstractions.Transports;
-using AutoUpdater.Db.Entities;
 using AutoUpdater.Db.Repositories.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -18,21 +17,21 @@ namespace AutoUpdater.Db.Repositories;
 internal class AppRepository : BaseRepository<AppEntity>, IAppRepository
 {
 	private readonly GridFSBucket _gridFsBucket;
-	private readonly ILogger<AppRepository> _logger;
+	private readonly ILogger<AppRepository> _baseLogger;
 
-	public AppRepository(IConfiguration configuration, ILogger<AppRepository> logger) : base(configuration, logger)
+	public AppRepository(IConfiguration configuration, ILogger<AppRepository> baseLogger) : base(configuration, baseLogger)
 	{
 		_gridFsBucket = new(Context.MongoDatabase, new()
 		{
 			BucketName = CollectionName
 		});
-		_logger = logger;
+		_baseLogger = baseLogger;
 	}
 
 
 	public async Task Delete(string name, AppVersion version, AppArch arch)
 	{
-		var logger = _logger.Enter($"{Log.F(name)} {Log.F(arch)} {Log.F(version)}");
+		var logger = _baseLogger.Enter($"{Log.F(name)} {Log.F(arch)} {Log.F(version)}");
 
 		var app = await Get(name, version, arch);
 		await _gridFsBucket.DeleteAsync(app.IdGridFs);
@@ -43,7 +42,7 @@ internal class AppRepository : BaseRepository<AppEntity>, IAppRepository
 
 	public async Task Add(App app)
 	{
-		var logger = _logger.Enter(Log.F(app.Metadata));
+		var logger = _baseLogger.Enter(Log.F(app.Metadata));
 
 		var file = new AppEntity
 		{
@@ -63,7 +62,7 @@ internal class AppRepository : BaseRepository<AppEntity>, IAppRepository
 
 	public async Task<List<AppMetadata>> GetAllMetadata(string name)
 	{
-		var logger = _logger.Enter(Log.F(name));
+		var logger = _baseLogger.Enter(Log.F(name));
 
 		var metadatas = await EntityCollection
 			.AsQueryable()
@@ -78,7 +77,7 @@ internal class AppRepository : BaseRepository<AppEntity>, IAppRepository
 
 	public async Task<byte[]> GetBinary(string name, AppVersion version, AppArch arch)
 	{
-		var logger = _logger.Enter($"{Log.F(name)} {Log.F(arch)} {Log.F(version)}");
+		var logger = _baseLogger.Enter($"{Log.F(name)} {Log.F(arch)} {Log.F(version)}");
 
 		var app = await Get(name, version, arch);
 
@@ -93,7 +92,7 @@ internal class AppRepository : BaseRepository<AppEntity>, IAppRepository
 
 	public async Task<Dictionary<AppArch, AppVersion>> GetLatestVersions(string name)
 	{
-		var logger = _logger.Enter(Log.F(name));
+		var logger = _baseLogger.Enter(Log.F(name));
 
 		var apps = await EntityCollection
 			.AsQueryable()
@@ -116,7 +115,7 @@ internal class AppRepository : BaseRepository<AppEntity>, IAppRepository
 
 	public async Task<AppVersion> GetLatestVersions(string name, AppArch arch)
 	{
-		var logger = _logger.Enter($"{Log.F(name)} {Log.F(arch)}");
+		var logger = _baseLogger.Enter($"{Log.F(name)} {Log.F(arch)}");
 
 		var versions = await GetLatestVersions(name);
 		var version = versions[arch];
@@ -128,7 +127,7 @@ internal class AppRepository : BaseRepository<AppEntity>, IAppRepository
 
 	public async Task<string[]> GetApps()
 	{
-		var logger = _logger.Enter();
+		var logger = _baseLogger.Enter();
 
 		var apps = (await EntityCollection.AsQueryable().Select(app => app.Metadata.Name).ToListAsync()).ToHashSet();
 
@@ -139,7 +138,7 @@ internal class AppRepository : BaseRepository<AppEntity>, IAppRepository
 
 	public async Task<AppVersion> GetLatestVersion(string name)
 	{
-		var logger = _logger.Enter(Log.F(name));
+		var logger = _baseLogger.Enter(Log.F(name));
 
 		var versions = await GetLatestVersions(name);
 
@@ -152,7 +151,7 @@ internal class AppRepository : BaseRepository<AppEntity>, IAppRepository
 
 	public async Task<DateTime> GetReleaseDate(string name, AppVersion version, AppArch arch)
 	{
-		var logger = _logger.Enter($"{Log.F(name)}");
+		var logger = _baseLogger.Enter($"{Log.F(name)}");
 
 		var entity = await EntityCollection.AsQueryable().SingleOrDefaultAsync(app => app.Metadata.Name == name && app.Metadata.Version == version && app.Metadata.Arch == arch);
 
@@ -164,7 +163,7 @@ internal class AppRepository : BaseRepository<AppEntity>, IAppRepository
 
 	private Task<AppEntity> Get(string name, AppVersion version, AppArch arch)
 	{
-		var logger = _logger.Enter($"{Log.F(name)} {Log.F(arch)} {Log.F(version)}");
+		var logger = _baseLogger.Enter($"{Log.F(name)} {Log.F(arch)} {Log.F(version)}");
 
 		var app = EntityCollection
 			.AsQueryable()

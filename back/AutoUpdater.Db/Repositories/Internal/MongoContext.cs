@@ -11,7 +11,7 @@ public class MongoContext
 
 		var url = new MongoUrl(cs);
 		var client = new MongoClient(url);
-		Console.WriteLine($"Connecting to Database '{url.DatabaseName}' on {url.Url} as {url.Username}");
+		Console.WriteLine($"Connecting to Database '{url.DatabaseName}' on {url.Servers.First().Host} as {url.Username}");
 		MongoDatabase = client.GetDatabase(url.DatabaseName);
 	}
 
