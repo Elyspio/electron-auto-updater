@@ -1,0 +1,29 @@
+FROM electronuserland/builder:wine
+
+RUN apt-get update && apt-get install -y flatpak flatpak-builder
+
+RUN yarn global add electron-builder
+
+COPY ./package.json /project/package.json
+COPY ./yarn.lock /project/yarn.lock
+RUN cd /project && yarn
+
+COPY ./app/package.json /project/app/package.json
+COPY ./app/yarn.lock /project/app/yarn.lock
+RUN cd /project && electron-builder install-app-deps
+RUN cd /project/app && yarn
+
+COPY . /project
+
+WORKDIR /project
+
+RUN yarn build
+
+ARG APP_VERSION
+ENV APP_VERSION $APP_VERSION
+
+RUN sed -i  -e "s/\"version\": \".*\"/\"version\": \"$APP_VERSION\"/g"  /project/package.json
+RUN sed -i  -e "s/\"version\": \".*\"/\"version\": \"$APP_VERSION\"/g" /project/app/package.json
+
+
+CMD ["electron-builder", "-wl"]

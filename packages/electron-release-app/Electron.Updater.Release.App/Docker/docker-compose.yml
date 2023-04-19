@@ -1,0 +1,10 @@
+version: "3"
+services:
+  electron-builder:
+    container_name: ${APP-swagger-merge}-electron-builder
+    build:
+      dockerfile: deploy/release-app/docker/dockerfile
+      context: ../../..
+    volumes:
+      - "${RELEASE_PATH-./releases}:/project/release"
+      - "/root/.cache"

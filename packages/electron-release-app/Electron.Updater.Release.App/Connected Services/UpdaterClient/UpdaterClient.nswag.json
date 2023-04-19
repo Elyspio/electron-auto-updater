@@ -1,0 +1,641 @@
+﻿{
+  "x-generator": "NSwag v13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))",
+  "openapi": "3.0.0",
+  "info": {
+    "title": "App.Updater",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://elyspio.fr/updater"
+    }
+  ],
+  "paths": {
+    "/api/apps": {
+      "get": {
+        "tags": [
+          "Apps"
+        ],
+        "summary": "Returns all apps app",
+        "operationId": "GetApps",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/apps/{app}/{arch}/{version}": {
+      "post": {
+        "tags": [
+          "Apps"
+        ],
+        "summary": "Add a new version for this application",
+        "operationId": "Add",
+        "parameters": [
+          {
+            "name": "app",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": false
+            },
+            "x-position": 1
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": false
+            },
+            "x-position": 2
+          },
+          {
+            "name": "arch",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "nullable": false,
+              "$ref": "#/components/schemas/AppArch"
+            },
+            "x-position": 3
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "content": {
+                    "type": "string",
+                    "format": "binary",
+                    "nullable": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Apps"
+        ],
+        "summary": "Delete a specific version for this application",
+        "operationId": "Delete",
+        "parameters": [
+          {
+            "name": "app",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": false
+            },
+            "x-position": 1
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": false
+            },
+            "x-position": 2
+          },
+          {
+            "name": "arch",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "nullable": false,
+              "$ref": "#/components/schemas/AppArch"
+            },
+            "x-position": 3
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Apps"
+        ],
+        "summary": "Get binary for this app/arch/version",
+        "operationId": "GetBinary",
+        "parameters": [
+          {
+            "name": "app",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": false
+            },
+            "x-position": 1
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": false
+            },
+            "x-position": 2
+          },
+          {
+            "name": "arch",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "nullable": false,
+              "$ref": "#/components/schemas/AppArch"
+            },
+            "x-position": 3
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/apps/{app}/{arch}/{version}/bytes": {
+      "post": {
+        "tags": [
+          "Apps"
+        ],
+        "summary": "Add a new version for this application from bytes",
+        "operationId": "AddFromBytes",
+        "parameters": [
+          {
+            "name": "app",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": false
+            },
+            "x-position": 1
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": false
+            },
+            "x-position": 2
+          },
+          {
+            "name": "arch",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "nullable": false,
+              "$ref": "#/components/schemas/AppArch"
+            },
+            "x-position": 3
+          }
+        ],
+        "requestBody": {
+          "x-name": "content",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string",
+                "format": "byte",
+                "nullable": false
+              }
+            }
+          },
+          "required": true,
+          "x-position": 4
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/apps/{app}/versions": {
+      "get": {
+        "tags": [
+          "Apps"
+        ],
+        "summary": "Get all versions for a specific arch",
+        "operationId": "GetLatestVersions",
+        "parameters": [
+          {
+            "name": "app",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": false
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "x-dictionaryKey": {
+                    "$ref": "#/components/schemas/AppArch"
+                  },
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/AppVersion"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/apps/{app}": {
+      "get": {
+        "tags": [
+          "Apps"
+        ],
+        "summary": "Get all versions for all arch for",
+        "operationId": "GetAllMetadata",
+        "parameters": [
+          {
+            "name": "app",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": false
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AppMetadata"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/apps/{app}/versions/latest": {
+      "get": {
+        "tags": [
+          "Apps"
+        ],
+        "summary": "Get the latest version for this app",
+        "operationId": "GetLatestVersion",
+        "parameters": [
+          {
+            "name": "app",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": false
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppVersion"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/apps/{app}/{arch}/version": {
+      "get": {
+        "tags": [
+          "Apps"
+        ],
+        "summary": "Get latest version for this arch",
+        "operationId": "GetLatestArchSpecificVersion",
+        "parameters": [
+          {
+            "name": "app",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": false
+            },
+            "x-position": 1
+          },
+          {
+            "name": "arch",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "nullable": false,
+              "$ref": "#/components/schemas/AppArch"
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppVersion"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/apps/{app}/{arch}/latest.yml": {
+      "get": {
+        "tags": [
+          "ElectronApps"
+        ],
+        "operationId": "GetLatestYml",
+        "parameters": [
+          {
+            "name": "app",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": false
+            },
+            "x-position": 1
+          },
+          {
+            "name": "arch",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "nullable": false,
+              "$ref": "#/components/schemas/AppArch"
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/apps/{app}/{arch}/{version}.blockmap": {
+      "get": {
+        "tags": [
+          "ElectronApps"
+        ],
+        "operationId": "GetBlockmap",
+        "parameters": [
+          {
+            "name": "app",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": false
+            },
+            "x-position": 1
+          },
+          {
+            "name": "arch",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "nullable": false,
+              "$ref": "#/components/schemas/AppArch"
+            },
+            "x-position": 2
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": false
+            },
+            "x-position": 3
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "byte"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ElectronApps"
+        ],
+        "operationId": "AddBlockmap",
+        "parameters": [
+          {
+            "name": "app",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": false
+            },
+            "x-position": 1
+          },
+          {
+            "name": "arch",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "nullable": false,
+              "$ref": "#/components/schemas/AppArch"
+            },
+            "x-position": 2
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": false
+            },
+            "x-position": 3
+          }
+        ],
+        "requestBody": {
+          "x-name": "content",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string",
+                "format": "byte",
+                "nullable": false
+              }
+            }
+          },
+          "required": true,
+          "x-position": 4
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AppArch": {
+        "type": "string",
+        "description": "",
+        "x-enumNames": [
+          "Win32",
+          "Win64",
+          "LinuxDeb",
+          "LinuxRpm",
+          "LinuxSnap",
+          "AppImage",
+          "Flatpak"
+        ],
+        "enum": [
+          "Win32",
+          "Win64",
+          "LinuxDeb",
+          "LinuxRpm",
+          "LinuxSnap",
+          "AppImage",
+          "Flatpak"
+        ]
+      },
+      "AppVersion": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "raw",
+          "minor",
+          "major",
+          "revision"
+        ],
+        "properties": {
+          "minor": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": false
+          },
+          "major": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": false
+          },
+          "revision": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": false
+          },
+          "raw": {
+            "type": "string",
+            "minLength": 1,
+            "nullable": false
+          }
+        }
+      },
+      "AppMetadata": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "version",
+          "arch"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": false
+          },
+          "version": {
+            "nullable": false,
+            "$ref": "#/components/schemas/AppVersion"
+          },
+          "arch": {
+            "nullable": false,
+            "$ref": "#/components/schemas/AppArch"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,8 @@
+﻿{
+	"AppName": "Coexya.Swagger-Merge",
+	"Server": "https://elyspio.fr/updater/",
+	"Paths": {
+		"Root": "../..",
+		"Releases": "../../releases"
+	}
+}

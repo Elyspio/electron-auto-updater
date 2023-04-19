@@ -6,5 +6,7 @@ public enum AppArch
 	Win64,
 	LinuxDeb,
 	LinuxRpm,
-	LinuxSnap
+	LinuxSnap,
+	AppImage,
+	Flatpak
 }

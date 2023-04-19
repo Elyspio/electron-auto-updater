@@ -6,6 +6,5 @@ obj
 
 
 # Secrets
-deploy/prod/.env
-deploy/prod/config/back/appsettings.json
-deploy/dev/data
+app/deploy/environments/prod/.env
+app/deploy/environments/prod/config/back/appsettings.json
